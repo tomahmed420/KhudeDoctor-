@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wonders-of-human-body.vercel.app/sitemap.xml

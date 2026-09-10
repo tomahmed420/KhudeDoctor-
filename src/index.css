@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Bubblegum+Sans&display=swap');
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 45 100% 96%;
+    --foreground: 250 30% 25%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 250 30% 25%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 250 30% 25%;
+
+    --primary: 280 60% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 200 80% 92%;
+    --secondary-foreground: 200 60% 30%;
+
+    --muted: 45 40% 90%;
+    --muted-foreground: 250 20% 45%;
+
+    --accent: 340 75% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 45 30% 85%;
+    --input: 45 30% 85%;
+    --ring: 280 60% 55%;
+
+    --radius: 1rem;
+
+    /* Organ-specific colors */
+    --organ-heart: 0 75% 70%;
+    --organ-heart-bg: 0 75% 95%;
+    --organ-brain: 320 60% 75%;
+    --organ-brain-bg: 320 60% 95%;
+    --organ-eyes: 200 80% 65%;
+    --organ-eyes-bg: 200 80% 95%;
+    --organ-lungs: 180 60% 70%;
+    --organ-lungs-bg: 180 60% 95%;
+    --organ-stomach: 35 80% 65%;
+    --organ-stomach-bg: 35 80% 95%;
+    --organ-liver: 15 70% 55%;
+    --organ-liver-bg: 15 70% 95%;
+    --organ-kidneys: 280 50% 65%;
+    --organ-kidneys-bg: 280 50% 95%;
+    --organ-bones: 40 30% 80%;
+    --organ-bones-bg: 40 30% 95%;
+    --organ-muscles: 350 65% 60%;
+    --organ-muscles-bg: 350 65% 95%;
+    --organ-skin: 25 70% 80%;
+    --organ-skin-bg: 25 70% 95%;
+    --organ-ears: 260 50% 70%;
+    --organ-ears-bg: 260 50% 95%;
+    --organ-tongue: 340 70% 70%;
+    --organ-tongue-bg: 340 70% 95%;
+    --organ-nose: 30 60% 75%;
+    --organ-nose-bg: 30 60% 95%;
+    --organ-intestines: 150 50% 60%;
+    --organ-intestines-bg: 150 50% 95%;
+    --organ-teeth: 195 70% 65%;
+    --organ-teeth-bg: 195 70% 95%;
+    --organ-blood: 350 80% 60%;
+    --organ-blood-bg: 350 80% 95%;
+
+    /* Quiz colors */
+    --quiz-correct: 140 70% 50%;
+    --quiz-wrong: 0 70% 55%;
+    --quiz-pending: 45 80% 60%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 250 30% 12%;
+    --foreground: 45 50% 95%;
+
+    --card: 250 25% 18%;
+    --card-foreground: 45 50% 95%;
+
+    --popover: 250 25% 18%;
+    --popover-foreground: 45 50% 95%;
+
+    --primary: 280 60% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 200 40% 25%;
+    --secondary-foreground: 200 60% 90%;
+
+    --muted: 250 20% 25%;
+    --muted-foreground: 45 30% 70%;
+
+    --accent: 340 70% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 250 20% 25%;
+    --input: 250 20% 25%;
+    --ring: 280 60% 60%;
+    
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-bangla;
+  }
+}
+
+@layer utilities {
+  .font-bubblegum {
+    font-family: 'Bubblegum Sans', cursive;
+  }
+  
+  .font-nunito {
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .font-bangla {
+    font-family: 'Hind Siliguri', 'Nunito', sans-serif;
+  }
+}

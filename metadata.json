@@ -1,0 +1,6 @@
+{
+  "name": "KhudeDoctor - খুদে ডাক্তার",
+  "description": "শিশুদের জন্য মানবদেহের অঙ্গ-প্রত্যঙ্গ ও প্রাথমিক বিজ্ঞান শিক্ষার আকর্ষণীয় ডিজিটাল পাঠশালা।",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
