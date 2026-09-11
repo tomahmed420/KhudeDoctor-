@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Volume2, VolumeX, CheckCircle2 } from "lucide-react";
 import type { Organ } from "@/data/organsData";
 import { useTTS } from "@/hooks/useTTS";
+import { soundEffects } from "@/utils/soundEffects";
 
 interface OrganCardProps {
   organ: Organ;
@@ -33,68 +34,84 @@ export const OrganCard = ({ organ, onClick, isExplored = false }: OrganCardProps
   const IconComponent = organ.icon;
   const { speak, stop, isSpeaking, isSupported } = useTTS();
 
+  const handleCardClick = () => {
+    if (organ.id === "heart" || organ.id === "blood") {
+      soundEffects.playHeartbeat();
+    } else if (organ.id === "stomach" || organ.id === "kidneys" || organ.id === "intestines") {
+      soundEffects.playBubble();
+    } else {
+      soundEffects.playPop();
+    }
+    onClick();
+  };
+
   const handleSpeak = (e: React.MouseEvent) => {
     e.stopPropagation();
+    soundEffects.playPop();
     if (isSpeaking) {
       stop();
     } else {
-      speak(`${organ.name}। ইংরেজিতে ${organ.nameBn}। ${organ.simpleFunction}`);
+      speak(organ.englishDesc);
     }
   };
 
   return (
     <motion.div
       whileHover={{ scale: 1.02, y: -3 }}
-      whileTap={{ scale: 0.97 }}
+      whileTap={{ scale: 0.98 }}
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      onClick={onClick}
+      onClick={handleCardClick} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleCardClick(); }}
       className={`
         ${colors.bg} ${colors.border}
-        relative cursor-pointer rounded-2xl sm:rounded-3xl border-2 border-solid
-        p-3 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-300
-        flex flex-col items-center text-center gap-2.5 sm:gap-3 min-h-[190px] sm:min-h-0
+        relative cursor-pointer rounded-2xl sm:rounded-3xl border-2 border-solid p-3 sm:p-5
+        shadow-sm hover:shadow-md transition-shadow duration-300
+        flex flex-col items-center text-center gap-2 select-none min-h-[190px] sm:min-h-0
       `}
     >
+      {/* Exploration Status Badge */}
       {isExplored && (
-        <div className="absolute top-2 left-2 flex items-center gap-1 bg-emerald-100 text-emerald-800 text-[9px] sm:text-[11px] font-bangla font-bold px-1.5 sm:px-2 py-0.5 rounded-full shadow-xs">
-          <CheckCircle2 size={11} className="text-emerald-600" />
-          <span className="hidden sm:inline">শেখা হয়েছে</span>
-          <span className="sm:hidden">✓</span>
+        <div className="absolute top-3 left-3 flex items-center gap-1 bg-emerald-500/15 text-emerald-800 text-[11px] font-bangla font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
+          <CheckCircle2 size={12} className="text-emerald-600" />
+          <span>শেখা হয়েছে</span>
         </div>
       )}
 
       <motion.div
         animate={{ y: [0, -3, 0] }}
-        transition={{ repeat: Infinity, duration: 2.8, ease: "easeInOut" }}
-        className={`${colors.icon} p-2.5 sm:p-4 rounded-2xl bg-card/60 shadow-xs mt-1`}
+        transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+        className={`${colors.icon} p-2.5 sm:p-3 rounded-2xl bg-card/70 shadow-xs mt-1`}
       >
-        <IconComponent size={32} className="sm:hidden" strokeWidth={1.75} />
-        <IconComponent size={42} className="hidden sm:block" strokeWidth={1.75} />
+        <IconComponent size={32} className="sm:hidden" strokeWidth={1.8} />
+        <IconComponent size={38} className="hidden sm:block" strokeWidth={1.8} />
       </motion.div>
-
+      
       <div>
         <h3 className="font-bangla font-bold text-base sm:text-2xl text-foreground">{organ.name}</h3>
-        <p className="text-[9px] sm:text-sm text-foreground/75 font-nunito font-semibold uppercase tracking-wider">{organ.nameBn}</p>
+        <p className="text-[9px] sm:text-sm text-muted-foreground font-sans font-semibold tracking-wide">{organ.nameBn}</p>
       </div>
 
       <p className="text-[11px] sm:text-sm text-foreground/80 line-clamp-2 font-bangla leading-relaxed">
-        {organ.simpleFunction.split("!")[0]}!
+        {organ.simpleFunction.split('!')[0]}!
       </p>
 
-      <div className="w-full pt-1.5 sm:pt-2 mt-auto flex items-center justify-between border-t border-foreground/10 text-[10px] sm:text-xs font-bangla font-semibold text-primary">
-        <span>বিস্তারিত →</span>
+      <div className="w-full pt-2 mt-auto flex items-center justify-between border-t border-foreground/10 text-[10px] sm:text-xs font-bangla font-semibold text-primary">
+        <span>বিস্তারিত জানো →</span>
         {isSupported && (
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handleSpeak}
-            title={isSpeaking ? "বন্ধ করুন" : "শুনুন"}
-            aria-label="অডিও শুনুন"
-            className={`p-1.5 rounded-full transition-colors ${isSpeaking ? `${colors.icon} bg-card animate-pulse shadow-xs` : `${colors.icon} bg-card/80 hover:bg-card`}`}
+            title={isSpeaking ? "শব্দ বন্ধ করুন" : "ইংরেজি উচ্চারণ শুনুন"}
+            aria-label="ইংরেজি অডিও শুনুন"
+            className={`p-1.5 rounded-full transition-colors ${
+              isSpeaking 
+                ? `${colors.icon} bg-card animate-pulse shadow-xs` 
+                : `${colors.icon} bg-card/80 hover:bg-card`
+            }`}
           >
-            {isSpeaking ? <VolumeX size={15} /> : <Volume2 size={15} />}
+            {isSpeaking ? <VolumeX size={16} /> : <Volume2 size={16} />}
           </motion.button>
         )}
       </div>
