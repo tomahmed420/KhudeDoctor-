@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ArrowRight, BookOpen, Gamepad2, Sparkles, Trophy, UserRound } from "lucide-react";
 import { funFactSnippets, organsData } from "@/data/organsData";
 
@@ -23,7 +22,7 @@ export const HomeHub = ({
   const funFact = funFactSnippets[exploredCount % funFactSnippets.length];
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4 sm:space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <section className="relative overflow-hidden rounded-[2rem] border border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 via-background to-amber-500/10 p-5 sm:p-8">
         <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-400/15 blur-2xl" />
         <div className="absolute -bottom-12 left-1/3 h-32 w-32 rounded-full bg-amber-400/15 blur-2xl" />
@@ -48,13 +47,7 @@ export const HomeHub = ({
           </div>
 
           <div className="mx-auto flex w-full max-w-xs items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 8, scale: 0.96 }}
-              animate={{ opacity: 1, y: [0, -5, 0], scale: 1, rotate: [-1.2, 1.2, -1.2] }}
-              transition={{ opacity: { duration: 0.45 }, scale: { duration: 0.45, ease: "easeOut" }, y: { duration: 3.4, repeat: Infinity, ease: "easeInOut" }, rotate: { duration: 4.6, repeat: Infinity, ease: "easeInOut" } }}
-              className="relative h-44 w-44 sm:h-52 sm:w-52"
-              aria-label="খুদে ডাক্তার লোগো"
-            >
+            <div className="relative h-44 w-44 sm:h-52 sm:w-52 animate-kd-float" aria-label="খুদে ডাক্তার লোগো">
               <svg viewBox="0 0 240 240" className="h-full w-full overflow-visible" role="img" aria-hidden="true">
                 <defs>
                   <linearGradient id="kd-card" x1="20" y1="10" x2="210" y2="235" gradientUnits="userSpaceOnUse">
@@ -177,7 +170,7 @@ export const HomeHub = ({
           <div className="mb-1.5 flex items-center justify-between font-bangla text-xs font-bold sm:text-sm">
             <span>{exploredCount}/{totalCount}টি অঙ্গ চিনেছো</span><span>{progressPercent}%</span>
           </div>
-          <div className="h-2.5 overflow-hidden rounded-full bg-muted"><motion.div className="h-full rounded-full bg-primary" animate={{ width: progressPercent + "%" }} /></div>
+          <div className="h-2.5 overflow-hidden rounded-full bg-muted"><div className="h-full rounded-full bg-primary transition-[width] duration-500" style={{ width: `${progressPercent}%` }} /></div>
         </section>
 
         <section className="rounded-3xl border border-violet-500/20 bg-violet-500/5 p-4 shadow-xs sm:p-5">
