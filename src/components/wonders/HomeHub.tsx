@@ -49,115 +49,79 @@ export const HomeHub = ({
 
           <div className="mx-auto flex w-full max-w-xs items-center justify-center">
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.94 }}
-              animate={{ opacity: 1, y: [0, -5, 0], scale: 1, rotate: [-0.7, 0.7, -0.7] }}
-              transition={{
-                opacity: { duration: 0.45 },
-                scale: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-                y: { duration: 4.2, repeat: Infinity, ease: "easeInOut" },
-                rotate: { duration: 5.2, repeat: Infinity, ease: "easeInOut" }
-              }}
-              className="relative h-48 w-48 sm:h-60 sm:w-60"
-              style={{ perspective: "900px" }}
-              aria-label="খুদে ডাক্তার 3D লোগো"
+              initial={{ opacity: 0, y: 8, scale: 0.96 }}
+              animate={{ opacity: 1, y: [0, -5, 0], scale: 1, rotate: [-1.2, 1.2, -1.2] }}
+              transition={{ opacity: { duration: 0.45 }, scale: { duration: 0.45, ease: "easeOut" }, y: { duration: 3.4, repeat: Infinity, ease: "easeInOut" }, rotate: { duration: 4.6, repeat: Infinity, ease: "easeInOut" } }}
+              className="relative h-44 w-44 sm:h-52 sm:w-52"
+              aria-label="খুদে ডাক্তার লোগো"
             >
-              <motion.div
-                animate={{ rotateX: [0, 1.5, 0], rotateY: [-1.5, 1.5, -1.5] }}
-                transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                className="h-full w-full"
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                <svg viewBox="0 0 280 280" className="h-full w-full overflow-visible drop-shadow-[0_18px_22px_rgba(18,91,120,0.18)]" role="img" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="kd3-edge" x1="35" y1="25" x2="245" y2="260" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#ffffff"/>
-                      <stop offset=".42" stopColor="#f8fdff"/>
-                      <stop offset=".75" stopColor="#d8f4ff"/>
-                      <stop offset="1" stopColor="#9bdff5"/>
-                    </linearGradient>
-                    <linearGradient id="kd3-face" x1="45" y1="35" x2="235" y2="245" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#71dcff"/>
-                      <stop offset=".42" stopColor="#43c7f6"/>
-                      <stop offset="1" stopColor="#159bdc"/>
-                    </linearGradient>
-                    <linearGradient id="kd3-plus" x1="145" y1="95" x2="215" y2="170" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#ff7b78"/>
-                      <stop offset=".5" stopColor="#ff4b4b"/>
-                      <stop offset="1" stopColor="#d92d3c"/>
-                    </linearGradient>
-                    <linearGradient id="kd3-tube" x1="78" y1="65" x2="175" y2="205" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#72f4df"/>
-                      <stop offset=".5" stopColor="#22cdb5"/>
-                      <stop offset="1" stopColor="#0d968e"/>
-                    </linearGradient>
-                    <radialGradient id="kd3-face-shine" cx="32%" cy="20%" r="82%">
-                      <stop stopColor="#ffffff" stopOpacity=".46"/>
-                      <stop offset=".45" stopColor="#ffffff" stopOpacity=".08"/>
-                      <stop offset="1" stopColor="#006ea8" stopOpacity=".12"/>
-                    </radialGradient>
-                    <filter id="kd3-depth" x="-35%" y="-35%" width="170%" height="190%">
-                      <feDropShadow dx="0" dy="11" stdDeviation="8" floodColor="#0b587b" floodOpacity=".30"/>
-                    </filter>
-                    <filter id="kd3-soft" x="-60%" y="-60%" width="220%" height="220%">
-                      <feGaussianBlur stdDeviation="8"/>
-                    </filter>
-                  </defs>
+              <svg viewBox="0 0 240 240" className="h-full w-full overflow-visible" role="img" aria-hidden="true">
+                <defs>
+                  <linearGradient id="kd-card" x1="20" y1="10" x2="210" y2="235" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="#6fd8ff" />
+                    <stop offset="0.5" stopColor="#39bff4" />
+                    <stop offset="1" stopColor="#159fe0" />
+                  </linearGradient>
+                  <linearGradient id="kd-edge" x1="25" y1="15" x2="210" y2="225" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="#ffffff" stopOpacity="0.96" />
+                    <stop offset="0.5" stopColor="#d8f5ff" stopOpacity="0.8" />
+                    <stop offset="1" stopColor="#8edfff" stopOpacity="0.92" />
+                  </linearGradient>
+                  <linearGradient id="kd-plus" x1="90" y1="76" x2="158" y2="144" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="#ff7474" />
+                    <stop offset="0.55" stopColor="#ff4e4e" />
+                    <stop offset="1" stopColor="#e62f3f" />
+                  </linearGradient>
+                  <linearGradient id="kd-tube" x1="55" y1="50" x2="150" y2="188" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="#6ff0dc" />
+                    <stop offset="0.55" stopColor="#22c8b1" />
+                    <stop offset="1" stopColor="#0e9f93" />
+                  </linearGradient>
+                  <filter id="kd-shadow" x="-30%" y="-30%" width="160%" height="180%">
+                    <feDropShadow dx="0" dy="8" stdDeviation="7" floodColor="#0c5d86" floodOpacity="0.28" />
+                  </filter>
+                  <filter id="kd-soft" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="7" />
+                  </filter>
+                </defs>
 
-                  <ellipse cx="140" cy="255" rx="82" ry="13" fill="#116b8f" opacity=".17" filter="url(#kd3-soft)"/>
+                <ellipse cx="120" cy="222" rx="62" ry="10" fill="#0b6f98" opacity="0.16" filter="url(#kd-soft)" />
 
-                  <g filter="url(#kd3-depth)">
-                    <!-- thick glossy outer shell -->
-                    <rect x="28" y="22" width="224" height="224" rx="52" fill="url(#kd3-edge)"/>
-                    <rect x="39" y="33" width="202" height="202" rx="43" fill="#bcecff" opacity=".62"/>
-                    <rect x="45" y="39" width="190" height="190" rx="39" fill="url(#kd3-face)"/>
-                    <rect x="45" y="39" width="190" height="190" rx="39" fill="url(#kd3-face-shine)"/>
+                <g filter="url(#kd-shadow)">
+                  <rect x="26" y="18" width="188" height="188" rx="43" fill="url(#kd-edge)" />
+                  <rect x="35" y="27" width="170" height="170" rx="36" fill="url(#kd-card)" />
+                  <path d="M48 34h94c28 0 50 22 50 50v9c-19-21-48-34-81-34-31 0-57 9-76 25V70c0-20 7-31 13-36Z" fill="#fff" opacity="0.18" />
+                  <path d="M39 160c35 18 86 24 166-9v35c0 6-5 11-11 11H47c-5 0-8-4-8-9Z" fill="#087fba" opacity="0.14" />
 
-                    <!-- glass-like highlight and bottom depth -->
-                    <path d="M57 48h105c34 0 61 27 61 61v18c-23-28-57-44-98-44-29 0-53 7-68 18V72c0-14 2-20 0-24Z" fill="#fff" opacity=".19"/>
-                    <path d="M46 185c42 24 108 27 189-12v35c0 12-9 21-21 21H68c-12 0-22-9-22-21Z" fill="#0879b3" opacity=".15"/>
-
-                    <!-- stethoscope -->
-                    <g fill="none" stroke="url(#kd3-tube)" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M86 82c-17 7-23 23-18 40l9 29c5 16 18 25 35 25h27c17 0 31-10 36-27l8-28c5-17-1-32-18-39"/>
-                      <path d="M105 174c-4 18 6 31 25 31h9c14 0 23-8 23-20"/>
-                    </g>
-                    <circle cx="84" cy="82" r="10" fill="#16bba5"/>
-                    <circle cx="166" cy="82" r="10" fill="#16bba5"/>
-                    <circle cx="84" cy="80" r="4" fill="#9affed" opacity=".8"/>
-                    <circle cx="166" cy="80" r="4" fill="#9affed" opacity=".8"/>
-
-                    <!-- cute stethoscope head -->
-                    <circle cx="124" cy="121" r="39" fill="#a9ecf7" stroke="#f3feff" strokeWidth="6"/>
-                    <circle cx="113" cy="108" r="13" fill="#e8fdff" opacity=".82"/>
-                    <circle cx="114" cy="121" r="4.6" fill="#193f52"/>
-                    <circle cx="138" cy="121" r="4.6" fill="#193f52"/>
-                    <circle cx="112.5" cy="119.5" r="1.4" fill="#fff"/>
-                    <circle cx="136.5" cy="119.5" r="1.4" fill="#fff"/>
-                    <path d="M114 136c7 8 16 8 23 0" fill="none" stroke="#1a4354" strokeWidth="4.8" strokeLinecap="round"/>
-
-                    <!-- glossy red medical plus -->
-                    <path d="M174 99h29c10 0 17 7 17 17v29c0 10-7 17-17 17h-29c-10 0-17-7-17-17v-29c0-10 7-17 17-17Z" fill="url(#kd3-plus)"/>
-                    <path d="M180 108h13v13h13v14h-13v13h-14v-13h-13v-14h14Z" fill="#fff"/>
-                    <path d="M177 103h25c8 0 14 6 14 14v3c-8-6-17-8-29-8-7 0-12 1-17 3 1-7 3-12 7-12Z" fill="#fff" opacity=".22"/>
-
-                    <!-- crisp brand mark -->
-                    <text x="140" y="202" textAnchor="middle" fontFamily="Nunito, sans-serif" fontSize="20" fontWeight="900" letterSpacing="1" fill="#fff">KHUDE</text>
-                    <text x="140" y="223" textAnchor="middle" fontFamily="Nunito, sans-serif" fontSize="25" fontWeight="900" letterSpacing=".4" fill="#fff">DOCTOR</text>
+                  <g fill="none" stroke="url(#kd-tube)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M73 69c-14 6-18 20-14 35l8 25c4 13 15 21 29 21h24c14 0 25-7 29-20l7-24c4-14 0-27-14-35" />
+                    <path d="M91 145c-3 17 7 27 23 27h7c12 0 19-6 19-16" />
                   </g>
+                  <circle cx="70" cy="69" r="8" fill="#18bba7" />
+                  <circle cx="143" cy="69" r="8" fill="#18bba7" />
 
-                  <!-- floating glossy accents -->
-                  <motion.g animate={{ y: [0, -6, 0], scale: [1, 1.08, 1], opacity: [.72, 1, .72] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}>
-                    <circle cx="257" cy="62" r="7" fill="#ffd23f"/>
-                    <path d="M257 43v38M238 62h38" stroke="#ffd23f" strokeWidth="4" strokeLinecap="round"/>
-                  </motion.g>
-                  <motion.g animate={{ y: [0, 5, 0], rotate: [-8, 8, -8] }} transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut" }} style={{ transformOrigin: "35px 95px" }}>
-                    <path d="M35 76c-9 0-15 7-15 15 0 10 15 23 15 23s15-13 15-23c0-8-6-15-15-15Z" fill="#ff626c" opacity=".95"/>
-                  </motion.g>
-                  <motion.g animate={{ x: [0, 5, 0], opacity: [.45, .9, .45] }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}>
-                    <path d="M250 142h18M250 153h13" stroke="#33c968" strokeWidth="7" strokeLinecap="round"/>
-                  </motion.g>
-                </svg>
-              </motion.div>
+                  <circle cx="106" cy="101" r="31" fill="#9be7f6" stroke="#eaffff" strokeWidth="5" />
+                  <circle cx="95" cy="91" r="10" fill="#dffbff" opacity="0.75" />
+                  <circle cx="97" cy="102" r="3.7" fill="#1d4255" />
+                  <circle cx="117" cy="102" r="3.7" fill="#1d4255" />
+                  <path d="M98 114c6 7 13 7 19 0" fill="none" stroke="#1d4255" strokeWidth="4" strokeLinecap="round" />
+
+                  <path d="M151 83h23c7 0 12 5 12 12v23c0 7-5 12-12 12h-23c-7 0-12-5-12-12V95c0-7 5-12 12-12Z" fill="url(#kd-plus)" />
+                  <path d="M158 91h9v9h9v10h-9v10h-10v-10h-9V100h10Z" fill="#fff" />
+
+                  <text x="120" y="173" textAnchor="middle" fontFamily="Nunito, sans-serif" fontSize="17" fontWeight="900" letterSpacing="0.7" fill="#fff">KHUDE</text>
+                  <text x="120" y="190" textAnchor="middle" fontFamily="Nunito, sans-serif" fontSize="21" fontWeight="900" letterSpacing="0.2" fill="#fff">DOCTOR</text>
+                </g>
+
+                <motion.g animate={{ opacity: [0.55, 1, 0.55], scale: [0.96, 1.05, 0.96] }} transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }} style={{ transformOrigin: "198px 45px" }}>
+                  <circle cx="198" cy="45" r="4" fill="#ffd24a" />
+                  <path d="M198 33v24M186 45h24" stroke="#ffd24a" strokeWidth="3" strokeLinecap="round" />
+                </motion.g>
+                <motion.g animate={{ opacity: [0.35, 0.9, 0.35], y: [0, -4, 0] }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}>
+                  <circle cx="28" cy="75" r="3.5" fill="#ff6d83" />
+                  <circle cx="214" cy="153" r="4" fill="#55d6a8" />
+                </motion.g>
+              </svg>
             </motion.div>
           </div>
         </div>
