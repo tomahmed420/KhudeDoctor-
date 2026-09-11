@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   BookOpen, 
@@ -15,13 +15,20 @@ import {
   learningChapters, 
   type Organ 
 } from "@/data/organsData";
-import { OrganCard } from "./OrganCard";
 import { HomeHub } from "./HomeHub";
 import { IntroSequence } from "./IntroSequence";
-import { OrganModal } from "./OrganModal";
-import { BodySilhouette } from "./BodySilhouette";
-import { QuizMode } from "./QuizMode";
 import { soundEffects } from "@/utils/soundEffects";
+
+const OrganCard = lazy(() => import("./OrganCard").then((module) => ({ default: module.OrganCard })));
+const OrganModal = lazy(() => import("./OrganModal").then((module) => ({ default: module.OrganModal })));
+const BodySilhouette = lazy(() => import("./BodySilhouette").then((module) => ({ default: module.BodySilhouette })));
+const QuizMode = lazy(() => import("./QuizMode").then((module) => ({ default: module.QuizMode })));
+
+const LazyFallback = () => (
+  <div className="min-h-[160px] flex items-center justify-center" aria-hidden="true">
+    <div className="h-8 w-8 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+  </div>
+);
 
 type ViewMode = "home" | "chapters" | "body" | "quiz-select";
 type QuizModeType = "quick" | "challenge" | null;
@@ -83,7 +90,9 @@ export const WondersOfBody = () => {
   if (quizMode) {
     return (
       <div className="min-h-screen bg-background pb-20 md:pb-0">
-        <QuizMode mode={quizMode} onExit={() => setQuizMode(null)} />
+        <Suspense fallback={<LazyFallback />}>
+          <QuizMode mode={quizMode} onExit={() => setQuizMode(null)} />
+        </Suspense>
       </div>
     );
   }
@@ -282,7 +291,9 @@ export const WondersOfBody = () => {
                 </p>
               </div>
 
-              <BodySilhouette organs={organsData} onOrganClick={handleOrganClick} />
+              <Suspense fallback={<LazyFallback />}>
+                <BodySilhouette organs={organsData} onOrganClick={handleOrganClick} />
+              </Suspense>
             </motion.div>
           )}
 
@@ -383,11 +394,13 @@ export const WondersOfBody = () => {
       </nav>
 
       {/* Organ Detail Modal */}
-      <OrganModal
-        organ={selectedOrgan}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-      />
+      <Suspense fallback={null}>
+        <OrganModal
+          organ={selectedOrgan}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
+      </Suspense>
 
     </div>
   );
