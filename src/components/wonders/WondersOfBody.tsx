@@ -1,5 +1,4 @@
 import { lazy, Suspense, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { 
   BookOpen, 
   User, 
@@ -211,17 +210,11 @@ export const WondersOfBody = () => {
         )}
 
         {/* View Routing */}
-        <AnimatePresence mode="wait">
+        <div>
           
           {/* VIEW 1: Systematic Learning Chapters (Opens immediately with zero clutter) */}
           {viewMode === "chapters" && (
-            <motion.div
-              key="chapters"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="space-y-6 sm:space-y-8"
-            >
+            <div className="space-y-6 sm:space-y-8">
               {learningChapters.map((chapter) => {
                 const chapterOrgans = organsData.filter((o) => chapter.organIds.includes(o.id));
                 const exploredInChapter = chapterOrgans.filter((o) => exploredIds.includes(o.id)).length;
@@ -279,13 +272,7 @@ export const WondersOfBody = () => {
 
           {/* VIEW 2: Human Body Silhouette Explorer */}
           {viewMode === "body" && (
-            <motion.div
-              key="body"
-              initial={{ opacity: 0, scale: 0.99 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.99 }}
-              className="py-1"
-            >
+            <div className="py-1">
               <div className="text-center mb-4">
                 <p className="text-foreground font-bangla text-xs sm:text-sm font-bold inline-flex items-center gap-2 bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-500/25">
                   <Activity className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
@@ -301,13 +288,7 @@ export const WondersOfBody = () => {
 
           {/* VIEW 3: Quiz Selection Mission Hub */}
           {viewMode === "quiz-select" && (
-            <motion.div
-              key="quiz-select"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              className="max-w-xl mx-auto py-6 sm:py-8 text-center space-y-6"
-            >
+            <div className="max-w-xl mx-auto py-6 sm:py-8 text-center space-y-6">
               <div className="space-y-2">
                 <div className="inline-flex p-3 rounded-2xl bg-amber-500/15 text-amber-600 mb-1">
                   <Gamepad2 className="w-9 h-9" />
@@ -372,7 +353,7 @@ export const WondersOfBody = () => {
             </motion.div>
           )}
 
-        </AnimatePresence>
+        </div>
 
       </main>
 
