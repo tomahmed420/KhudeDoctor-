@@ -36,6 +36,61 @@ const scenes: Record<Scene, {title:string; subtitle:string}> = {
   2: { title: "আজকের অভিযান শুরু হোক!", subtitle: "শিখি • খেলি • আবিষ্কার করি" },
 };
 
+
+const MOBILE_INTRO_VIDEO =
+  "https://res.cloudinary.com/dqzuwf0ra/video/upload/f_auto,q_auto/v1789132448/intro";
+
+const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+
+  useEffect(() => {
+    const fallback = window.setTimeout(() => {
+      if (!videoReady) setVideoFailed(true);
+    }, 2200);
+    return () => window.clearTimeout(fallback);
+  }, [videoReady]);
+
+  useEffect(() => {
+    if (!videoReady) return;
+    const fallbackFinish = window.setTimeout(onFinish, 2600);
+    return () => window.clearTimeout(fallbackFinish);
+  }, [videoReady, onFinish]);
+
+  if (videoFailed) {
+    onFinish();
+    return null;
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] overflow-hidden bg-black"
+      role="presentation"
+      aria-label="খুদে ডাক্তার পরিচিতি"
+    >
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted={false}
+        playsInline
+        preload="auto"
+        onCanPlay={() => setVideoReady(true)}
+        onError={() => setVideoFailed(true)}
+        onEnded={onFinish}
+      >
+        <source src={MOBILE_INTRO_VIDEO} type="video/mp4" />
+      </video>
+
+      <button
+        type="button"
+        onClick={onFinish}
+        aria-label="পরিচিতি এড়িয়ে হোমে যাও"
+        className="absolute inset-0 h-full w-full cursor-default bg-transparent"
+      />
+    </div>
+  );
+};
+
 export const IntroSequence = ({ onFinish }: { onFinish: () => void }) => {
   const [scene, setScene] = useState<Scene>(0);
   useEffect(() => {
