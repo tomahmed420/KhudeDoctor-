@@ -7,7 +7,6 @@ import {
   Home,
   Trophy,
   Sparkles,
-  RefreshCw,
   CheckCircle2, 
   Activity,
   Stethoscope
@@ -31,8 +30,6 @@ export const WondersOfBody = () => {
   const [selectedOrgan, setSelectedOrgan] = useState<Organ | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quizMode, setQuizMode] = useState<QuizModeType>(null);
-  const [currentFactIdx, setCurrentFactIdx] = useState(0);
-
   // Learning progress tracker
   const [exploredIds, setExploredIds] = useState<string[]>(() => {
     try {
@@ -62,10 +59,9 @@ export const WondersOfBody = () => {
     }
   };
 
-  const handleNextFact = () => {
-    soundEffects.playPop();
-    setCurrentFactIdx((prev) => (prev + 1) % 8);
-  };
+  const exploredCount = exploredIds.length;
+  const totalCount = organsData.length;
+  const progressPercent = Math.round((exploredCount / totalCount) * 100);
 
   const changeView = (view: ViewMode) => {
     soundEffects.playPop();
@@ -188,15 +184,15 @@ export const WondersOfBody = () => {
                 আমার অগ্রগতি
               </span>
               <span className="text-[10px] sm:text-xs font-bangla font-extrabold px-2 py-0.5 rounded-full bg-primary/10 text-primary">
-                অঙ্গ শেখা
+                {progressPercent}% সম্পূর্ণ
               </span>
             </div>
             <div className="flex items-center justify-between gap-2 text-xs sm:text-sm font-bangla font-bold mb-1.5">
-              <span>নতুন অঙ্গ আবিষ্কার করো!</span>
-              <span>চলছে</span>
+              <span>{exploredCount}/{totalCount}টি অঙ্গ চিনেছো</span>
+              <span>{progressPercent}%</span>
             </div>
             <div className="w-full h-2.5 bg-muted rounded-full overflow-hidden">
-              <div className="h-full bg-primary rounded-full w-1/4" />
+              <motion.div className="h-full bg-primary rounded-full" animate={{ width: progressPercent + "%" }} transition={{ duration: 0.5 }} />
             </div>
           </div>
 
@@ -210,9 +206,7 @@ export const WondersOfBody = () => {
                 </p>
               </div>
             </div>
-            <button onClick={handleNextFact} aria-label="অন্য তথ্য দেখো" className="p-2 rounded-xl bg-card border border-border shrink-0 active:scale-95">
-              <RefreshCw className="w-4 h-4" />
-            </button>
+            <span className="text-amber-600 text-[10px] sm:text-xs font-bangla font-bold shrink-0">✨ আবিষ্কার করো</span>
           </div>
         </div>
 
