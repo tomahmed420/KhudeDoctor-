@@ -16,16 +16,18 @@ import {
   type Organ 
 } from "@/data/organsData";
 import { OrganCard } from "./OrganCard";
+import { HomeHub } from "./HomeHub";
 import { OrganModal } from "./OrganModal";
 import { BodySilhouette } from "./BodySilhouette";
 import { QuizMode } from "./QuizMode";
 import { soundEffects } from "@/utils/soundEffects";
 
-type ViewMode = "chapters" | "body" | "quiz-select";
+type ViewMode = "home" | "chapters" | "body" | "quiz-select";
 type QuizModeType = "quick" | "challenge" | null;
 
 export const WondersOfBody = () => {
-  const [viewMode, setViewMode] = useState<ViewMode>("chapters");
+  const [viewMode, setViewMode] = useState<ViewMode>("home");
+  const [showIntro, setShowIntro] = useState(() => { try { return localStorage.getItem("khude_doctor_intro_seen_v1") !== "1"; } catch { return false; } });
   const [selectedOrgan, setSelectedOrgan] = useState<Organ | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quizMode, setQuizMode] = useState<QuizModeType>(null);
@@ -74,6 +76,28 @@ export const WondersOfBody = () => {
     setTimeout(() => setSelectedOrgan(null), 300);
   };
 
+  const finishIntro = () => {
+    try { localStorage.setItem("khude_doctor_intro_seen_v1", "1"); } catch { /* Ignore storage errors */ }
+    setShowIntro(false);
+  };
+
+  if (showIntro) {
+    return <div className="fixed inset-0 z-[100] flex min-h-screen items-center justify-center overflow-hidden bg-emerald-950 px-5">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(52,211,153,.24),transparent_45%),radial-gradient(circle_at_80%_80%,rgba(251,191,36,.16),transparent_35%)]" />
+      <div className="relative z-10 flex flex-col items-center text-center">
+        <motion.div initial={{ scale: .55, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: .55 }} className="relative flex h-40 w-40 items-center justify-center rounded-full border border-emerald-300/20 bg-white/10 shadow-2xl backdrop-blur-md sm:h-48 sm:w-48">
+          <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 1.8, repeat: Infinity }} className="text-7xl sm:text-8xl">🧑‍⚕️</motion.div>
+          <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: .45 }} className="absolute -left-2 top-5 text-3xl">🫀</motion.span>
+          <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: .65 }} className="absolute -right-2 top-10 text-3xl">🧠</motion.span>
+          <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: .85 }} className="absolute bottom-3 right-4 text-3xl">🫁</motion.span>
+        </motion.div>
+        <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .75 }} className="mt-6 font-bangla text-sm font-bold text-emerald-100">চলো, নিজের শরীরকে চিনে নিই!</motion.p>
+        <motion.h1 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .95 }} className="mt-1 font-bangla text-3xl font-black text-white sm:text-4xl">খুদে ডাক্তার</motion.h1>
+      </div>
+      <motion.div initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ delay: 2.35, duration: .45 }} onAnimationComplete={finishIntro} className="pointer-events-none absolute inset-0 bg-emerald-950" />
+    </div>;
+  }
+
   // Active Quiz View
   if (quizMode) {
     return (
@@ -92,7 +116,7 @@ export const WondersOfBody = () => {
           <div className="flex items-center justify-between gap-3">
             
             {/* Title & Brand Icon */}
-            <button type="button" onClick={() => changeView("chapters")} className="flex items-center gap-2.5 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="খুদে ডাক্তার হোম">
+            <button type="button" onClick={() => changeView("home")} className="flex items-center gap-2.5 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="খুদে ডাক্তার হোম">
               <div className="flex items-center gap-2.5">
                 <div className="p-2 sm:p-2.5 rounded-2xl bg-emerald-600 text-white shrink-0 shadow-sm">
                   <Stethoscope className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -119,6 +143,10 @@ export const WondersOfBody = () => {
                 aria-label="প্রধান নেভিগেশন"
                 className="flex items-center justify-center bg-muted/80 p-1 rounded-2xl border border-border/70 shadow-xs w-full md:w-auto"
               >
+                <button type="button" onClick={() => changeView("home")} className="flex-1 md:flex-initial flex items-center justify-center gap-1 sm:gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bangla font-bold bg-primary text-primary-foreground shadow-xs">
+                  <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4" /><span>হোম</span>
+                </button>
+
                 <button
                   type="button"
                   onClick={() => {
@@ -148,7 +176,7 @@ export const WondersOfBody = () => {
                   }`}
                 >
                   <User className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span>দেহ মডেল</span>
+                  <span>শরীর</span>
                 </button>
 
                 <button
@@ -176,6 +204,21 @@ export const WondersOfBody = () => {
       {/* Main Learning Hub */}
       <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 flex-1 max-w-6xl pb-24 md:pb-6">
 
+        {viewMode === "home" && (
+          <HomeHub
+            exploredCount={exploredCount}
+            totalCount={totalCount}
+            progressPercent={progressPercent}
+            onNavigate={changeView}
+            onOrganPick={(organId) => {
+              const organ = organsData.find((item) => item.id === organId);
+              if (organ) handleOrganClick(organ);
+            }}
+          />
+        )}
+
+        {viewMode !== "home" && (
+          <div className="hidden">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
           <div className="bg-card p-3.5 sm:p-4 rounded-2xl border border-border/80 shadow-xs">
             <div className="flex items-center justify-between gap-2 mb-2">
@@ -206,6 +249,9 @@ export const WondersOfBody = () => {
             </div>
           </div>
         </div>
+
+          </div>
+        )}
 
         {/* View Routing */}
         <AnimatePresence mode="wait">
@@ -381,10 +427,10 @@ export const WondersOfBody = () => {
 
       <nav aria-label="মোবাইল নেভিগেশন" className="md:hidden fixed bottom-0 inset-x-0 z-50 px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] bg-background/95 backdrop-blur-xl border-t border-border/80 shadow-[0_-6px_24px_rgba(0,0,0,0.08)]">
         <div className="max-w-lg mx-auto grid grid-cols-4 gap-1">
-          <button type="button" onClick={() => changeView("chapters")} className={`flex flex-col items-center justify-center gap-0.5 min-h-14 rounded-2xl font-bangla text-[11px] font-bold active:scale-95 transition-all ${viewMode === "chapters" ? "bg-primary/12 text-primary" : "text-muted-foreground"}`}><Home className="w-5 h-5" /><span>হোম</span></button>
+          <button type="button" onClick={() => changeView("home")} className={`flex flex-col items-center justify-center gap-0.5 min-h-14 rounded-2xl font-bangla text-[11px] font-bold active:scale-95 transition-all ${viewMode === "chapters" ? "bg-primary/12 text-primary" : "text-muted-foreground"}`}><Home className="w-5 h-5" /><span>হোম</span></button>
           <button type="button" onClick={() => changeView("chapters")} className={`flex flex-col items-center justify-center gap-0.5 min-h-14 rounded-2xl font-bangla text-[11px] font-bold active:scale-95 transition-all ${viewMode === "chapters" ? "bg-primary/12 text-primary" : "text-muted-foreground"}`}><BookOpen className="w-5 h-5" /><span>পাঠশালা</span></button>
           <button type="button" onClick={() => changeView("quiz-select")} className={`flex flex-col items-center justify-center gap-0.5 min-h-14 rounded-2xl font-bangla text-[11px] font-bold active:scale-95 transition-all ${viewMode === "quiz-select" ? "bg-primary/12 text-primary" : "text-muted-foreground"}`}><Gamepad2 className="w-5 h-5" /><span>কুইজ</span></button>
-          <button type="button" onClick={() => changeView("body")} className={`flex flex-col items-center justify-center gap-0.5 min-h-14 rounded-2xl font-bangla text-[11px] font-bold active:scale-95 transition-all ${viewMode === "body" ? "bg-primary/12 text-primary" : "text-muted-foreground"}`}><User className="w-5 h-5" /><span>দেহ</span></button>
+          <button type="button" onClick={() => changeView("body")} className={`flex flex-col items-center justify-center gap-0.5 min-h-14 rounded-2xl font-bangla text-[11px] font-bold active:scale-95 transition-all ${viewMode === "body" ? "bg-primary/12 text-primary" : "text-muted-foreground"}`}><User className="w-5 h-5" /><span>শরীর</span></button>
         </div>
       </nav>
 
