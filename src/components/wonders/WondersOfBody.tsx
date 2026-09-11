@@ -209,48 +209,13 @@ export const WondersOfBody = () => {
             exploredCount={exploredCount}
             totalCount={totalCount}
             progressPercent={progressPercent}
+            exploredIds={exploredIds}
             onNavigate={changeView}
             onOrganPick={(organId) => {
               const organ = organsData.find((item) => item.id === organId);
               if (organ) handleOrganClick(organ);
             }}
           />
-        )}
-
-        {viewMode !== "home" && (
-          <div className="hidden">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
-          <div className="bg-card p-3.5 sm:p-4 rounded-2xl border border-border/80 shadow-xs">
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <span className="text-xs font-bangla font-bold text-muted-foreground flex items-center gap-1.5">
-                <Trophy className="w-4 h-4 text-amber-500" />
-                আমার অগ্রগতি
-              </span>
-              <span className="text-[10px] sm:text-xs font-bangla font-extrabold px-2 py-0.5 rounded-full bg-primary/10 text-primary">
-                {progressPercent}% সম্পূর্ণ
-              </span>
-            </div>
-            <div className="flex items-center justify-between gap-2 text-xs sm:text-sm font-bangla font-bold mb-1.5">
-              <span>{exploredCount}/{totalCount}টি অঙ্গ চিনেছো</span>
-              <span>{progressPercent}%</span>
-            </div>
-            <div className="w-full h-2.5 bg-muted rounded-full overflow-hidden">
-              <motion.div className="h-full bg-primary rounded-full" animate={{ width: progressPercent + "%" }} transition={{ duration: 0.5 }} />
-            </div>
-          </div>
-
-          <div className="bg-amber-500/10 dark:bg-amber-950/25 p-3.5 sm:p-4 rounded-2xl border border-amber-500/30 shadow-xs flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-amber-500/20 text-amber-600 shrink-0"><span className="text-sm">✨</span></div>
-            <div className="min-w-0">
-              <span className="text-xs font-bangla font-bold text-amber-700 dark:text-amber-300 block">তুমি কি জানতে?</span>
-              <p className="text-xs sm:text-sm font-bangla text-foreground/90 font-medium leading-snug mt-0.5">
-                প্রতিটি অঙ্গের কার্ডে ট্যাপ করে তার মজার তথ্য ও কাজ জেনে নাও।
-              </p>
-            </div>
-          </div>
-        </div>
-
-          </div>
         )}
 
         {/* View Routing */}
