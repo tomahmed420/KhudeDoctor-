@@ -37,84 +37,51 @@ const scenes: Record<Scene, {title:string; subtitle:string}> = {
 };
 
 
-const MOBILE_INTRO_VIDEO =
-  "https://res.cloudinary.com/dqzuwf0ra/video/upload/f_auto,q_auto/v1789132448/intro";
-
 const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
-  const [videoReady, setVideoReady] = useState(false);
-  const [isExiting, setIsExiting] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-
-  const finish = () => {
-    if (isExiting) return;
-    setIsExiting(true);
-  };
-
   useEffect(() => {
-    if (!isExiting) return;
-    const timer = window.setTimeout(onFinish, 650);
+    const timer = window.setTimeout(onFinish, 1200);
     return () => window.clearTimeout(timer);
-  }, [isExiting, onFinish]);
-
-  // Give slow mobile connections a little more time to load the tiny intro.
-  // If autoplay with sound is blocked, we retry muted instead of skipping the intro.
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      if (!videoReady) finish();
-    }, 3000);
-    return () => window.clearTimeout(timer);
-  }, [videoReady]);
+  }, [onFinish]);
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] overflow-hidden bg-black"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#062e2b] px-5"
       initial={{ opacity: 1 }}
-      animate={{ opacity: isExiting ? 0 : 1 }}
-      transition={{ duration: 0.28, ease: "easeOut" }}
+      animate={{ opacity: 1 }}
       aria-label="খুদে ডাক্তার পরিচিতি"
     >
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        autoPlay
-        muted={isMuted}
-        playsInline
-        preload="metadata"
-        onCanPlay={(event) => {
-          setVideoReady(true);
-          const video = event.currentTarget;
-
-          // First try the preferred experience: autoplay with the video's original audio.
-          void video.play().catch(() => {
-            // Browser autoplay policy blocked sound. Keep the exact same intro,
-            // switch only the audio off, and play it so the intro is never skipped.
-            video.muted = true;
-            setIsMuted(true);
-            void video.play().catch(finish);
-          });
-        }}
-        onError={finish}
-        onEnded={finish}
-      >
-        <source src={MOBILE_INTRO_VIDEO} type="video/mp4" />
-      </video>
-      <AnimatePresence>
-        {isExiting && (
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(52,211,153,.28),transparent_42%),radial-gradient(circle_at_20%_85%,rgba(56,189,248,.16),transparent_32%)]" />
+      <div className="relative z-10 flex flex-col items-center text-center">
+        <motion.div
+          className="flex h-28 w-28 items-center justify-center rounded-[2rem] border border-white/15 bg-white/10 shadow-2xl backdrop-blur-md"
+          initial={{ scale: .88, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: .35, ease: "easeOut" }}
+        >
           <motion.div
-            className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[1px]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-          >
-            <motion.div
-              className="h-9 w-9 rounded-full border-2 border-white/30 border-t-white/90"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 0.55, ease: "linear" }}
-              aria-hidden="true"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+            className="h-16 w-16 rounded-full bg-gradient-to-br from-cyan-200 to-cyan-400 shadow-lg"
+            animate={{ y: [0, -4, 0], scale: [1, 1.03, 1] }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
+        <motion.h1
+          className="mt-5 font-bangla text-2xl font-black text-white"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: .12, duration: .3 }}
+        >
+          খুদে ডাক্তার
+        </motion.h1>
+        <p className="mt-1 font-bangla text-xs font-bold text-emerald-100/80">
+          শরীরের ভেতরটা চলো আবিষ্কার করি!
+        </p>
+      </div>
+      <motion.div
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1.1, ease: "linear" }}
+        className="absolute bottom-0 left-0 h-1 origin-left bg-emerald-300/80"
+      />
     </motion.div>
   );
 };
