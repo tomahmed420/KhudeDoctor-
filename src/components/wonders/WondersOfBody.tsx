@@ -4,6 +4,8 @@ import {
   BookOpen, 
   User, 
   Gamepad2, 
+  Home,
+  Trophy,
   CheckCircle2, 
   Activity,
   Stethoscope
@@ -57,6 +59,16 @@ export const WondersOfBody = () => {
     }
   };
 
+  const exploredCount = exploredIds.length;
+  const totalCount = organsData.length;
+  const progressPercent = Math.round((exploredCount / totalCount) * 100);
+
+  const changeView = (view: ViewMode) => {
+    soundEffects.playPop();
+    setViewMode(view);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setTimeout(() => setSelectedOrgan(null), 300);
@@ -65,7 +77,7 @@ export const WondersOfBody = () => {
   // Active Quiz View
   if (quizMode) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background pb-20 md:pb-0">
         <QuizMode mode={quizMode} onExit={() => setQuizMode(null)} />
       </div>
     );
@@ -77,10 +89,10 @@ export const WondersOfBody = () => {
       {/* 1. App Header */}
       <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-md border-b border-border/80 shadow-xs">
         <div className="container mx-auto px-3 sm:px-4 py-2.5 sm:py-3">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-2.5 sm:gap-3">
+          <div className="flex items-center justify-between gap-3">
             
             {/* Title & Brand Icon */}
-            <div className="flex items-center justify-between w-full md:w-auto">
+            <button type="button" onClick={() => changeView("chapters")} className="flex items-center gap-2.5 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="খুদে ডাক্তার হোম">
               <div className="flex items-center gap-2.5">
                 <div className="p-2 sm:p-2.5 rounded-2xl bg-emerald-600 text-white shrink-0 shadow-sm">
                   <Stethoscope className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -100,9 +112,10 @@ export const WondersOfBody = () => {
                 </div>
               </div>
             </div>
+            </button>
 
             {/* 2. Kid-Friendly Top Navigation Tabs (Zero Overflow, Fully Responsive) */}
-            <div className="w-full md:w-auto flex items-center justify-center gap-1.5">
+            <div className="hidden md:flex w-full md:w-auto items-center justify-center gap-1.5">
               <nav 
                 aria-label="প্রধান নেভিগেশন"
                 className="flex items-center justify-center bg-muted/80 p-1 rounded-2xl border border-border/70 shadow-xs w-full md:w-auto"
@@ -162,7 +175,38 @@ export const WondersOfBody = () => {
       </header>
 
       {/* Main Learning Hub */}
-      <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 flex-1 max-w-6xl">
+      <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 flex-1 max-w-6xl pb-24 md:pb-6">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
+          <div className="bg-card p-3.5 sm:p-4 rounded-2xl border border-border/80 shadow-xs">
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <span className="text-xs font-bangla font-bold text-muted-foreground flex items-center gap-1.5">
+                <Trophy className="w-4 h-4 text-amber-500" />
+                আমার অগ্রগতি
+              </span>
+              <span className="text-[10px] sm:text-xs font-bangla font-extrabold px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                {progressPercent}% সম্পূর্ণ
+              </span>
+            </div>
+            <div className="flex items-center justify-between gap-2 text-xs sm:text-sm font-bangla font-bold mb-1.5">
+              <span>{exploredCount}/{totalCount}টি অঙ্গ চিনেছো</span>
+              <span>{progressPercent}%</span>
+            </div>
+            <div className="w-full h-2.5 bg-muted rounded-full overflow-hidden">
+              <motion.div className="h-full bg-primary rounded-full" animate={{ width: progressPercent + "%" }} transition={{ duration: 0.5 }} />
+            </div>
+          </div>
+
+          <div className="bg-amber-500/10 dark:bg-amber-950/25 p-3.5 sm:p-4 rounded-2xl border border-amber-500/30 shadow-xs flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-amber-500/20 text-amber-600 shrink-0"><span className="text-sm">✨</span></div>
+            <div className="min-w-0">
+              <span className="text-xs font-bangla font-bold text-amber-700 dark:text-amber-300 block">তুমি কি জানতে?</span>
+              <p className="text-xs sm:text-sm font-bangla text-foreground/90 font-medium leading-snug mt-0.5">
+                প্রতিটি অঙ্গের কার্ডে ট্যাপ করে তার মজার তথ্য ও কাজ জেনে নাও।
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* View Routing */}
         <AnimatePresence mode="wait">
@@ -213,7 +257,7 @@ export const WondersOfBody = () => {
                     </div>
 
                     {/* Organs in this chapter */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-4">
                       {chapterOrgans.map((organ) => (
                         <OrganCard
                           key={organ.id}
@@ -327,7 +371,7 @@ export const WondersOfBody = () => {
       </main>
 
       {/* Clean Educational Footer */}
-      <footer className="bg-card border-t border-border/80 py-4 mt-8">
+      <footer className="hidden md:block bg-card border-t border-border/80 py-4 mt-8">
         <div className="container mx-auto px-4 text-center">
           <p className="font-bangla text-muted-foreground text-xs sm:text-sm">
             আনন্দে শেখো এবং তোমার অসাধারণ শরীরের প্রতিটি নিয়ামতের জন্য সবসময় বলো{" "}
@@ -335,6 +379,15 @@ export const WondersOfBody = () => {
           </p>
         </div>
       </footer>
+
+      <nav aria-label="মোবাইল নেভিগেশন" className="md:hidden fixed bottom-0 inset-x-0 z-50 px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] bg-background/95 backdrop-blur-xl border-t border-border/80 shadow-[0_-6px_24px_rgba(0,0,0,0.08)]">
+        <div className="max-w-lg mx-auto grid grid-cols-4 gap-1">
+          <button type="button" onClick={() => changeView("chapters")} className={`flex flex-col items-center justify-center gap-0.5 min-h-14 rounded-2xl font-bangla text-[11px] font-bold active:scale-95 transition-all ${viewMode === "chapters" ? "bg-primary/12 text-primary" : "text-muted-foreground"}`}><Home className="w-5 h-5" /><span>হোম</span></button>
+          <button type="button" onClick={() => changeView("chapters")} className={`flex flex-col items-center justify-center gap-0.5 min-h-14 rounded-2xl font-bangla text-[11px] font-bold active:scale-95 transition-all ${viewMode === "chapters" ? "bg-primary/12 text-primary" : "text-muted-foreground"}`}><BookOpen className="w-5 h-5" /><span>পাঠশালা</span></button>
+          <button type="button" onClick={() => changeView("quiz-select")} className={`flex flex-col items-center justify-center gap-0.5 min-h-14 rounded-2xl font-bangla text-[11px] font-bold active:scale-95 transition-all ${viewMode === "quiz-select" ? "bg-primary/12 text-primary" : "text-muted-foreground"}`}><Gamepad2 className="w-5 h-5" /><span>কুইজ</span></button>
+          <button type="button" onClick={() => changeView("body")} className={`flex flex-col items-center justify-center gap-0.5 min-h-14 rounded-2xl font-bangla text-[11px] font-bold active:scale-95 transition-all ${viewMode === "body" ? "bg-primary/12 text-primary" : "text-muted-foreground"}`}><User className="w-5 h-5" /><span>দেহ</span></button>
+        </div>
+      </nav>
 
       {/* Organ Detail Modal */}
       <OrganModal
