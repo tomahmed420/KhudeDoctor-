@@ -113,7 +113,7 @@ export const HomeHub = ({
                 <g>
                   <circle cx="28" cy="75" r="3.5" fill="#ff6d83" />
                   <circle cx="214" cy="153" r="4" fill="#55d6a8" />
-                </motion.g>
+                </g>
               </svg>
             </div>
           </div>
@@ -183,6 +183,6 @@ export const HomeHub = ({
           </div>
         </section>
       </div>
-    </motion.div>
+    </div>
   );
 };
