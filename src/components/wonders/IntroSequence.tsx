@@ -43,6 +43,7 @@ const MOBILE_INTRO_VIDEO =
 const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
   const [videoReady, setVideoReady] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
 
   const finish = () => {
     if (isExiting) return;
@@ -55,10 +56,12 @@ const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
     return () => window.clearTimeout(timer);
   }, [isExiting, onFinish]);
 
+  // Give slow mobile connections a little more time to load the tiny intro.
+  // If autoplay with sound is blocked, we retry muted instead of skipping the intro.
   useEffect(() => {
     const timer = window.setTimeout(() => {
       if (!videoReady) finish();
-    }, 2200);
+    }, 5000);
     return () => window.clearTimeout(timer);
   }, [videoReady]);
 
@@ -73,15 +76,20 @@ const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
       <video
         className="absolute inset-0 h-full w-full object-cover"
         autoPlay
-        muted={false}
+        muted={isMuted}
         playsInline
         preload="auto"
         onCanPlay={(event) => {
           setVideoReady(true);
           const video = event.currentTarget;
+
+          // First try the preferred experience: autoplay with the video's original audio.
           void video.play().catch(() => {
-            // Some mobile browsers block autoplay with audio. Keep the site usable.
-            finish();
+            // Browser autoplay policy blocked sound. Keep the exact same intro,
+            // switch only the audio off, and play it so the intro is never skipped.
+            video.muted = true;
+            setIsMuted(true);
+            void video.play().catch(finish);
           });
         }}
         onError={finish}
@@ -127,7 +135,7 @@ export const IntroSequence = ({ onFinish }: { onFinish: () => void }) => {
     if (isMobile) return;
     const timer = window.setInterval(
       () => setScene((current) => current === 2 ? 0 : ((current + 1) as Scene)),
-      1050
+      600
     );
     return () => window.clearInterval(timer);
   }, [isMobile]);
@@ -160,10 +168,10 @@ export const IntroSequence = ({ onFinish }: { onFinish: () => void }) => {
         </div>
         <AnimateText scene={scene}/>
       </div>
-      <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:.6, delay:2.9 }} className="absolute bottom-9 text-center">
-        <p className="font-bangla text-[11px] font-bold tracking-wide text-emerald-100/70">একটু অপেক্ষা… অভিযান শুরু হচ্ছে</p>
+      <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:.35, delay:1.15 }} className="absolute bottom-9 text-center">
+        <p className="font-bangla text-[11px] font-bold tracking-wide text-emerald-100/70">একটু অপেক্ষা… শুরু হচ্ছে</p>
       </motion.div>
-      <motion.div initial={{ scaleX:0 }} animate={{ scaleX:1 }} transition={{ duration:3.15, ease:"linear" }} onAnimationComplete={onFinish} className="absolute bottom-0 left-0 h-1 origin-left bg-emerald-300/80" />
+      <motion.div initial={{ scaleX:0 }} animate={{ scaleX:1 }} transition={{ duration:1.8, ease:"linear" }} onAnimationComplete={onFinish} className="absolute bottom-0 left-0 h-1 origin-left bg-emerald-300/80" />
     </div>
   );
 };
