@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Gamepad2, Sparkles, Trophy, UserRound } from "lucide-react";
+import { ArrowRight, BookOpen, Gamepad2, Sparkles, Trophy, UserRound, HeartPulse, Brain, Wind } from "lucide-react";
 import { funFactSnippets, organsData } from "@/data/organsData";
 
 interface HomeHubProps {
@@ -33,7 +33,7 @@ export const HomeHub = ({
               ✨ মানবদেহের মজার অভিযান
             </span>
             <h2 className="mt-3 font-bangla text-2xl font-black leading-tight sm:text-4xl">
-              হাই, খুদে ডাক্তার! 👋
+              হাই, খুদে ডাক্তার!
             </h2>
             <p className="mt-2 max-w-xl font-bangla text-sm font-semibold leading-relaxed text-muted-foreground sm:text-base">
               নিজের শরীরের ভেতরের আশ্চর্য জগতটা আজ একটু আবিষ্কার করবে?
@@ -62,7 +62,7 @@ export const HomeHub = ({
 
       <section className="rounded-3xl border border-amber-500/25 bg-amber-500/10 p-4 sm:p-5">
         <div className="flex items-start gap-3">
-          <div className="rounded-2xl bg-amber-500/15 p-2.5 text-xl">🚀</div>
+          <div className="rounded-2xl bg-amber-500/15 p-2.5"><ArrowRight className="h-5 w-5 text-amber-600" /></div>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
@@ -115,7 +115,7 @@ export const HomeHub = ({
 
         <section className="rounded-3xl border border-violet-500/20 bg-violet-500/5 p-4 shadow-xs sm:p-5">
           <div className="flex items-start gap-3">
-            <span className="text-xl">✨</span>
+            <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-violet-500" />
             <div>
               <p className="font-bangla text-xs font-bold text-violet-700 dark:text-violet-300">তুমি কি জানতে?</p>
               <p className="mt-1 font-bangla text-xs font-semibold leading-relaxed sm:text-sm">{funFact.fact}</p>
