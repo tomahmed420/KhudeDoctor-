@@ -6,6 +6,7 @@ interface HomeHubProps {
   exploredCount: number;
   totalCount: number;
   progressPercent: number;
+  exploredIds: string[];
   onNavigate: (view: "chapters" | "body" | "quiz-select") => void;
   onOrganPick: (organId: string) => void;
 }
@@ -14,11 +15,11 @@ export const HomeHub = ({
   exploredCount,
   totalCount,
   progressPercent,
+  exploredIds,
   onNavigate,
   onOrganPick,
 }: HomeHubProps) => {
-  const nextOrgan = organsData.find((organ) => !exploredCount || !exploredCount) ?? organsData[0];
-  const firstUnexplored = organsData.find((organ) => !window.localStorage.getItem("wonders_body_explored_v1")?.includes(organ.id)) ?? organsData[0];
+  const firstUnexplored = organsData.find((organ) => !exploredIds.includes(organ.id)) ?? organsData[0];
   const funFact = funFactSnippets[exploredCount % funFactSnippets.length];
 
   return (
