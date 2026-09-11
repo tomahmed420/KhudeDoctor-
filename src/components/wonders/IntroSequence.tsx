@@ -61,7 +61,7 @@ const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       if (!videoReady) finish();
-    }, 5000);
+    }, 3000);
     return () => window.clearTimeout(timer);
   }, [videoReady]);
 
@@ -78,7 +78,7 @@ const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
         autoPlay
         muted={isMuted}
         playsInline
-        preload="auto"
+        preload="metadata"
         onCanPlay={(event) => {
           setVideoReady(true);
           const video = event.currentTarget;
