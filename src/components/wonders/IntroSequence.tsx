@@ -51,7 +51,7 @@ const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
 
   useEffect(() => {
     if (!isExiting) return;
-    const timer = window.setTimeout(onFinish, 280);
+    const timer = window.setTimeout(onFinish, 650);
     return () => window.clearTimeout(timer);
   }, [isExiting, onFinish]);
 
@@ -89,6 +89,24 @@ const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
       >
         <source src={MOBILE_INTRO_VIDEO} type="video/mp4" />
       </video>
+      <AnimatePresence>
+        {isExiting && (
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[1px]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+          >
+            <motion.div
+              className="h-9 w-9 rounded-full border-2 border-white/30 border-t-white/90"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 0.55, ease: "linear" }}
+              aria-hidden="true"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
