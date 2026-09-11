@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Gamepad2, Sparkles, Trophy, UserRound, HeartPulse, Brain, Wind } from "lucide-react";
+import { ArrowRight, BookOpen, Gamepad2, Sparkles, Trophy, UserRound } from "lucide-react";
 import { funFactSnippets, organsData } from "@/data/organsData";
 
 interface HomeHubProps {
