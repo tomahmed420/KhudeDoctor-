@@ -49,12 +49,13 @@ export const HomeHub = ({
 
           <div className="mx-auto flex w-full max-w-xs items-center justify-center">
             <div className="relative flex h-44 w-44 items-center justify-center rounded-full border border-emerald-500/20 bg-card/80 shadow-lg sm:h-52 sm:w-52">
-              <motion.div animate={{ y: [0, -7, 0] }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }} className="text-7xl sm:text-8xl">
-                🧑‍⚕️
+              <motion.div animate={{ y:[0,-5,0], rotate:[-2,2,-2] }} transition={{duration:2.4,repeat:Infinity,ease:"easeInOut"}} className="relative flex h-28 w-20 items-center justify-center rounded-[2rem] border-2 border-emerald-500/20 bg-emerald-500/10 shadow-inner">
+                <div className="absolute -top-7 h-12 w-12 rounded-full border-2 border-amber-500/30 bg-amber-500/10" />
+                <div className="absolute left-1/2 top-9 -translate-x-1/2 rounded-xl bg-rose-500/10 p-1.5"><HeartPulse className="h-7 w-7 text-rose-500" /></div>
               </motion.div>
-              <motion.span animate={{ y: [-4, 4, -4], rotate: [0, 8, 0] }} transition={{ duration: 2.2, repeat: Infinity }} className="absolute -left-2 top-6 text-3xl">🫀</motion.span>
-              <motion.span animate={{ y: [4, -4, 4], rotate: [0, -8, 0] }} transition={{ duration: 2.5, repeat: Infinity }} className="absolute -right-1 top-10 text-3xl">🧠</motion.span>
-              <motion.span animate={{ y: [0, 5, 0] }} transition={{ duration: 2.4, repeat: Infinity }} className="absolute bottom-5 right-5 text-3xl">🫁</motion.span>
+              <motion.div animate={{x:[0,-4,0],y:[0,3,0],rotate:[0,5,0]}} transition={{duration:2.1,repeat:Infinity}} className="absolute left-3 top-8 rounded-2xl border border-rose-500/20 bg-rose-500/10 p-2.5 shadow-md"><HeartPulse className="h-7 w-7 text-rose-500" /></motion.div>
+              <motion.div animate={{x:[0,4,0],y:[0,-3,0],rotate:[0,-5,0]}} transition={{duration:2.5,repeat:Infinity}} className="absolute right-3 top-6 rounded-2xl border border-violet-500/20 bg-violet-500/10 p-2.5 shadow-md"><Brain className="h-7 w-7 text-violet-500" /></motion.div>
+              <motion.div animate={{y:[0,4,0]}} transition={{duration:2.2,repeat:Infinity}} className="absolute bottom-5 right-7 rounded-2xl border border-sky-500/20 bg-sky-500/10 p-2.5 shadow-md"><Wind className="h-7 w-7 text-sky-500" /></motion.div>
             </div>
           </div>
         </div>
