@@ -42,30 +42,32 @@ const MOBILE_INTRO_VIDEO =
 
 const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
   const [videoReady, setVideoReady] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
+
+  const finish = () => {
+    if (isExiting) return;
+    setIsExiting(true);
+  };
 
   useEffect(() => {
-    const fallback = window.setTimeout(() => {
-      if (!videoReady) setVideoFailed(true);
-    }, 2200);
-    return () => window.clearTimeout(fallback);
+    if (!isExiting) return;
+    const timer = window.setTimeout(onFinish, 280);
+    return () => window.clearTimeout(timer);
+  }, [isExiting, onFinish]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      if (!videoReady) finish();
+    }, 2500);
+    return () => window.clearTimeout(timer);
   }, [videoReady]);
 
-  useEffect(() => {
-    if (!videoReady) return;
-    const fallbackFinish = window.setTimeout(onFinish, 2600);
-    return () => window.clearTimeout(fallbackFinish);
-  }, [videoReady, onFinish]);
-
-  if (videoFailed) {
-    onFinish();
-    return null;
-  }
-
   return (
-    <div
+    <motion.div
       className="fixed inset-0 z-[100] overflow-hidden bg-black"
-      role="presentation"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: isExiting ? 0 : 1 }}
+      transition={{ duration: 0.28, ease: "easeOut" }}
       aria-label="খুদে ডাক্তার পরিচিতি"
     >
       <video
@@ -75,28 +77,38 @@ const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
         playsInline
         preload="auto"
         onCanPlay={() => setVideoReady(true)}
-        onError={() => setVideoFailed(true)}
-        onEnded={onFinish}
+        onError={finish}
+        onEnded={finish}
       >
         <source src={MOBILE_INTRO_VIDEO} type="video/mp4" />
       </video>
-
-      <button
-        type="button"
-        onClick={onFinish}
-        aria-label="পরিচিতি এড়িয়ে হোমে যাও"
-        className="absolute inset-0 h-full w-full cursor-default bg-transparent"
-      />
-    </div>
+    </motion.div>
   );
 };
 
 export const IntroSequence = ({ onFinish }: { onFinish: () => void }) => {
+  const [isMobile, setIsMobile] = useState(false);
   const [scene, setScene] = useState<Scene>(0);
+
   useEffect(() => {
-    const timer = window.setInterval(() => setScene((current) => current === 2 ? 0 : ((current + 1) as Scene)), 1050);
-    return () => window.clearInterval(timer);
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const updateMobile = () => setIsMobile(mediaQuery.matches);
+    updateMobile();
+    mediaQuery.addEventListener("change", updateMobile);
+    return () => mediaQuery.removeEventListener("change", updateMobile);
   }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+    const timer = window.setInterval(
+      () => setScene((current) => current === 2 ? 0 : ((current + 1) as Scene)),
+      1050
+    );
+    return () => window.clearInterval(timer);
+  }, [isMobile]);
+
+  if (isMobile) return <MobileVideoIntro onFinish={onFinish} />;
+
   return (
     <div className="fixed inset-0 z-[100] flex min-h-screen items-center justify-center overflow-hidden bg-[#062e2b] px-5">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(52,211,153,.28),transparent_42%),radial-gradient(circle_at_20%_85%,rgba(56,189,248,.16),transparent_32%),radial-gradient(circle_at_85%_75%,rgba(251,191,36,.14),transparent_32%)]" />
