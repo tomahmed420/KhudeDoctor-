@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wonders-of-human-body.vercel.app/sitemap.xml
+Sitemap: https://khude-doctor.vercel.app/sitemap.xml
