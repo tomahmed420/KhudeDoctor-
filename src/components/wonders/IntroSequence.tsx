@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 type Scene = 0 | 1 | 2;
 
@@ -36,7 +37,11 @@ const scenes: Record<Scene, {title:string; subtitle:string}> = {
 };
 
 export const IntroSequence = ({ onFinish }: { onFinish: () => void }) => {
-  const scene = 0 as Scene;
+  const [scene, setScene] = useState<Scene>(0);
+  useEffect(() => {
+    const timer = window.setInterval(() => setScene((current) => current === 2 ? 0 : ((current + 1) as Scene)), 1050);
+    return () => window.clearInterval(timer);
+  }, []);
   return (
     <div className="fixed inset-0 z-[100] flex min-h-screen items-center justify-center overflow-hidden bg-[#062e2b] px-5">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(52,211,153,.28),transparent_42%),radial-gradient(circle_at_20%_85%,rgba(56,189,248,.16),transparent_32%),radial-gradient(circle_at_85%_75%,rgba(251,191,36,.14),transparent_32%)]" />
@@ -56,6 +61,7 @@ export const IntroSequence = ({ onFinish }: { onFinish: () => void }) => {
               <circle cx="103" cy="78" r="7" fill="#e5e7eb" stroke="#94a3b8" strokeWidth="2"/>
             </motion.svg>
           </motion.div>
+          <AnimatePresence mode="wait"><motion.div key={scene} initial={{opacity:0,scale:.7,rotate:-8}} animate={{opacity:1,scale:1,rotate:0}} exit={{opacity:0,scale:.7,rotate:8}} transition={{duration:.35}} className="absolute inset-0 flex items-center justify-center pointer-events-none"> {scene === 0 ? <Heart/> : scene === 1 ? <Brain/> : <Lungs/>}</motion.div></AnimatePresence>
           <motion.div className="absolute left-0 top-8 rounded-2xl bg-white/10 p-2 shadow-lg backdrop-blur" animate={{ x:[0,-5,0], y:[0,4,0] }} transition={{ duration:2.2, repeat:Infinity }}><Heart/></motion.div>
           <motion.div className="absolute right-0 top-2 rounded-2xl bg-white/10 p-2 shadow-lg backdrop-blur" animate={{ x:[0,5,0], y:[0,-4,0] }} transition={{ duration:2.5, repeat:Infinity }}><Brain/></motion.div>
           <motion.div className="absolute bottom-0 right-2 rounded-2xl bg-white/10 p-2 shadow-lg backdrop-blur" animate={{ x:[0,4,0], y:[0,4,0] }} transition={{ duration:2.3, repeat:Infinity }}><Lungs/></motion.div>
@@ -65,7 +71,7 @@ export const IntroSequence = ({ onFinish }: { onFinish: () => void }) => {
       <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:.6, delay:2.9 }} className="absolute bottom-9 text-center">
         <p className="font-bangla text-[11px] font-bold tracking-wide text-emerald-100/70">একটু অপেক্ষা… অভিযান শুরু হচ্ছে</p>
       </motion.div>
-      <motion.div initial={{ scaleX:0 }} animate={{ scaleX:1 }} transition={{ duration:3.2, ease:"linear" }} onAnimationComplete={onFinish} className="absolute bottom-0 left-0 h-1 origin-left bg-emerald-300/80" />
+      <motion.div initial={{ scaleX:0 }} animate={{ scaleX:1 }} transition={{ duration:3.15, ease:"linear" }} onAnimationComplete={onFinish} className="absolute bottom-0 left-0 h-1 origin-left bg-emerald-300/80" />
     </div>
   );
 };
