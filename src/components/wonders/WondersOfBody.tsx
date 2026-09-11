@@ -105,12 +105,17 @@ export const WondersOfBody = () => {
                   <Stethoscope className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div className="flex flex-col items-start leading-none">
-                  <p className="font-bangla font-black text-base sm:text-lg text-foreground tracking-tight">
+                  <div className="flex items-baseline gap-1.5 sm:gap-2">
+                    <h1 className="font-bangla font-black text-lg sm:text-xl text-foreground tracking-tight">
+                      খুদে ডাক্তার
+                    </h1>
+                    <span className="text-[9px] sm:text-[10px] font-bold tracking-wide text-emerald-700 dark:text-emerald-300">
+                      KhudeDoctor
+                    </span>
+                  </div>
+                  <p className="mt-1.5 font-bangla font-semibold text-[10px] sm:text-xs text-muted-foreground tracking-tight">
                     মানবদেহের জাদুকরী পাঠশালা
                   </p>
-                  <h1 className="mt-1 font-bangla font-bold text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 tracking-tight">
-                    খুদে ডাক্তার
-                  </h1>
                 </div>
               </div>
             </button>
