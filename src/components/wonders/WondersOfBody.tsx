@@ -111,7 +111,6 @@ export const WondersOfBody = () => {
                   </p>
                 </div>
               </div>
-            </div>
             </button>
 
             {/* 2. Kid-Friendly Top Navigation Tabs (Zero Overflow, Fully Responsive) */}
