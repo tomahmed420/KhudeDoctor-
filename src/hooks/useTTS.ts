@@ -26,7 +26,6 @@ export const useTTS = () => {
 
   const speak = useCallback((text: string) => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-      console.warn('Text-to-Speech is not supported in this browser');
       return;
     }
 
@@ -35,36 +34,34 @@ export const useTTS = () => {
       window.speechSynthesis.cancel();
 
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'bn-BD'; // Bengali (Bangladesh)
-      utterance.rate = 0.9; // Friendly pacing for children
-      utterance.pitch = 1.05; // Pleasant tone
+      utterance.lang = 'en-US'; // High-quality native English
+      utterance.rate = 0.88; // Calm, clear tempo for primary school children
+      utterance.pitch = 1.05; // Pleasant, friendly tone
 
-      // Find Bengali voice if available (bn-BD, bn-IN, or containing 'bengali')
+      // Pick the best natural English voice available on device (Siri, Google US English, Samantha, etc.)
       const voices = voicesRef.current.length > 0 ? voicesRef.current : (window.speechSynthesis.getVoices() || []);
-      const banglaVoice = voices.find(
+      const englishVoice = voices.find(
         (v) =>
-          v.lang.toLowerCase().startsWith('bn') ||
-          v.name.toLowerCase().includes('bangla') ||
-          v.name.toLowerCase().includes('bengali')
-      );
+          (v.lang === 'en-US' || v.lang.startsWith('en')) &&
+          (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Daniel') || v.default)
+      ) || voices.find((v) => v.lang.startsWith('en'));
 
-      if (banglaVoice) {
-        utterance.voice = banglaVoice;
+      if (englishVoice) {
+        utterance.voice = englishVoice;
       }
 
       utterance.onstart = () => setIsSpeaking(true);
       utterance.onend = () => setIsSpeaking(false);
       utterance.onerror = (e) => {
-        // Ignored canceled errors which happen on new speak or modal close
         if (e.error !== 'canceled' && e.error !== 'interrupted') {
-          console.warn('SpeechSynthesis error:', e.error);
+          console.warn('Speech error:', e.error);
         }
         setIsSpeaking(false);
       };
 
       window.speechSynthesis.speak(utterance);
     } catch (err) {
-      console.warn('Failed to invoke speech synthesis:', err);
+      console.warn('Speech synthesis failed:', err);
       setIsSpeaking(false);
     }
   }, []);
@@ -73,8 +70,8 @@ export const useTTS = () => {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       try {
         window.speechSynthesis.cancel();
-      } catch (err) {
-        console.warn('Failed to cancel speech synthesis:', err);
+      } catch {
+        // ignore
       }
       setIsSpeaking(false);
     }

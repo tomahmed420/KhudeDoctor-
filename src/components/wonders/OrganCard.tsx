@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Volume2, VolumeX, CheckCircle2 } from "lucide-react";
 import type { Organ } from "@/data/organsData";
 import { useTTS } from "@/hooks/useTTS";
+import { soundEffects } from "@/utils/soundEffects";
 
 interface OrganCardProps {
   organ: Organ;
@@ -33,12 +34,24 @@ export const OrganCard = ({ organ, onClick, isExplored = false }: OrganCardProps
   const IconComponent = organ.icon;
   const { speak, stop, isSpeaking, isSupported } = useTTS();
 
+  const handleCardClick = () => {
+    if (organ.id === "heart" || organ.id === "blood") {
+      soundEffects.playHeartbeat();
+    } else if (organ.id === "stomach" || organ.id === "kidneys" || organ.id === "intestines") {
+      soundEffects.playBubble();
+    } else {
+      soundEffects.playPop();
+    }
+    onClick();
+  };
+
   const handleSpeak = (e: React.MouseEvent) => {
     e.stopPropagation();
+    soundEffects.playPop();
     if (isSpeaking) {
       stop();
     } else {
-      speak(`${organ.name}। ইংরেজিতে ${organ.nameBn}। ${organ.simpleFunction}`);
+      speak(organ.englishDesc);
     }
   };
 
@@ -49,36 +62,36 @@ export const OrganCard = ({ organ, onClick, isExplored = false }: OrganCardProps
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      onClick={onClick}
+      onClick={handleCardClick}
       className={`
         ${colors.bg} ${colors.border}
-        relative cursor-pointer rounded-3xl border-2 border-solid p-5 sm:p-6
+        relative cursor-pointer rounded-3xl border-2 border-solid p-4 sm:p-5
         shadow-sm hover:shadow-md transition-shadow duration-300
-        flex flex-col items-center text-center gap-3
+        flex flex-col items-center text-center gap-2.5 select-none
       `}
     >
       {/* Exploration Status Badge */}
       {isExplored && (
-        <div className="absolute top-3 left-3 flex items-center gap-1 bg-emerald-100 text-emerald-800 text-[11px] font-bangla font-bold px-2 py-0.5 rounded-full shadow-xs">
+        <div className="absolute top-3 left-3 flex items-center gap-1 bg-emerald-500/15 text-emerald-800 text-[11px] font-bangla font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
           <CheckCircle2 size={12} className="text-emerald-600" />
           <span>শেখা হয়েছে</span>
         </div>
       )}
 
       <motion.div
-        animate={{ y: [0, -4, 0] }}
+        animate={{ y: [0, -3, 0] }}
         transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
-        className={`${colors.icon} p-3.5 sm:p-4 rounded-2xl bg-card/60 shadow-xs mt-1`}
+        className={`${colors.icon} p-3 rounded-2xl bg-card/70 shadow-xs mt-1`}
       >
-        <IconComponent size={42} strokeWidth={1.75} />
+        <IconComponent size={38} strokeWidth={1.8} />
       </motion.div>
       
       <div>
         <h3 className="font-bangla font-bold text-xl sm:text-2xl text-foreground">{organ.name}</h3>
-        <p className="text-xs sm:text-sm text-foreground/75 font-nunito font-semibold uppercase tracking-wider">{organ.nameBn}</p>
+        <p className="text-xs sm:text-sm text-muted-foreground font-sans font-semibold tracking-wide">{organ.nameBn}</p>
       </div>
 
-      <p className="text-sm text-foreground/80 line-clamp-2 font-bangla leading-relaxed">
+      <p className="text-xs sm:text-sm text-foreground/80 line-clamp-2 font-bangla leading-relaxed">
         {organ.simpleFunction.split('!')[0]}!
       </p>
 
@@ -89,8 +102,8 @@ export const OrganCard = ({ organ, onClick, isExplored = false }: OrganCardProps
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handleSpeak}
-            title={isSpeaking ? "বন্ধ করুন" : "শুনুন"}
-            aria-label="অডিও শুনুন"
+            title={isSpeaking ? "শব্দ বন্ধ করুন" : "ইংরেজি উচ্চারণ শুনুন"}
+            aria-label="ইংরেজি অডিও শুনুন"
             className={`p-1.5 rounded-full transition-colors ${
               isSpeaking 
                 ? `${colors.icon} bg-card animate-pulse shadow-xs` 
