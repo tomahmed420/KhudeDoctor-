@@ -237,63 +237,193 @@ export const BodySilhouette = ({ organs, onOrganClick }: BodySilhouetteProps) =>
         <div className="order-1 lg:order-2 lg:col-span-4 flex flex-col items-center">
           <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[1/1.85] bg-gradient-to-b from-amber-500/5 via-primary/5 to-emerald-500/5 rounded-3xl p-3 border-2 border-border/80 shadow-inner flex items-center justify-center overflow-hidden">
             
-            {/* Friendly Child Silhouette SVG */}
+            {/* High-detail, code-rendered 3D-style child anatomy artwork */}
             <svg
               viewBox="0 0 240 450"
               className="w-full h-full select-none"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="ইন্টার‌্যাক্টিভ মানবদেহ"
             >
               <defs>
-                <linearGradient id="bodySkin" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#fde68a" stopOpacity="0.9" />
-                  <stop offset="50%" stopColor="#fcd34d" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#fbbf24" stopOpacity="0.75" />
+                <linearGradient id="skin3d" x1="45" y1="20" x2="205" y2="430" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stopColor="#fff1df"/>
+                  <stop offset="0.28" stopColor="#ffd8b5"/>
+                  <stop offset="0.58" stopColor="#f4b58e"/>
+                  <stop offset="0.82" stopColor="#d98a68"/>
+                  <stop offset="1" stopColor="#b96852"/>
                 </linearGradient>
+                <radialGradient id="faceGlow" cx="42%" cy="30%" r="70%">
+                  <stop offset="0" stopColor="#fff8ef" stopOpacity="0.95"/>
+                  <stop offset="0.52" stopColor="#ffd7b5" stopOpacity="0.92"/>
+                  <stop offset="1" stopColor="#dc906e" stopOpacity="0.98"/>
+                </radialGradient>
+                <linearGradient id="hair3d" x1="78" y1="20" x2="162" y2="105" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#4b2a27"/>
+                  <stop offset="0.45" stopColor="#241817"/>
+                  <stop offset="1" stopColor="#120f10"/>
+                </linearGradient>
+                <linearGradient id="shirt3d" x1="76" y1="120" x2="164" y2="300" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#43c7b1"/>
+                  <stop offset="0.5" stopColor="#16a085"/>
+                  <stop offset="1" stopColor="#08735f"/>
+                </linearGradient>
+                <linearGradient id="glassBody" x1="60" y1="115" x2="180" y2="310" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#fff" stopOpacity="0.48"/>
+                  <stop offset="0.45" stopColor="#e9f8ff" stopOpacity="0.25"/>
+                  <stop offset="1" stopColor="#b7e6e0" stopOpacity="0.12"/>
+                </linearGradient>
+                <radialGradient id="heart3d" cx="35%" cy="25%" r="80%">
+                  <stop stopColor="#ff777f"/>
+                  <stop offset="0.5" stopColor="#f23d50"/>
+                  <stop offset="1" stopColor="#a70e2c"/>
+                </radialGradient>
+                <linearGradient id="lung3d" x1="85" y1="150" x2="155" y2="230">
+                  <stop stopColor="#ffb6c4"/>
+                  <stop offset="1" stopColor="#d94d72"/>
+                </linearGradient>
+                <linearGradient id="organWarm" x1="90" y1="210" x2="150" y2="290">
+                  <stop stopColor="#ffbd7a"/>
+                  <stop offset="1" stopColor="#e46d38"/>
+                </linearGradient>
+                <filter id="softShadow" x="-30%" y="-30%" width="160%" height="170%">
+                  <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#6b4b3f" floodOpacity="0.20"/>
+                </filter>
+                <filter id="organShadow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="2.5" floodColor="#5b2330" floodOpacity="0.22"/>
+                </filter>
+                <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <clipPath id="torsoClip">
+                  <path d="M77 116 C62 120 53 135 50 157 L44 245 C43 254 49 259 56 256 L67 204 L70 286 C71 300 82 310 98 313 L120 318 L142 313 C158 310 169 300 170 286 L173 204 L184 256 C191 259 197 254 196 245 L190 157 C187 135 178 120 163 116 Z"/>
+                </clipPath>
               </defs>
 
-              {/* Head Outline */}
-              <circle cx="120" cy="62" r="42" fill="url(#bodySkin)" stroke="#d97706" strokeWidth="2.5" />
-              
-              {/* Ears */}
-              <ellipse cx="76" cy="64" rx="5" ry="9" fill="url(#bodySkin)" stroke="#d97706" strokeWidth="2" />
-              <ellipse cx="164" cy="64" rx="5" ry="9" fill="url(#bodySkin)" stroke="#d97706" strokeWidth="2" />
+              {/* Ground shadow */}
+              <ellipse cx="120" cy="438" rx="62" ry="8" fill="#6b554d" opacity="0.13"/>
 
-              {/* Friendly Smiling Face */}
-              <circle cx="106" cy="58" r="2.5" fill="#78350f" opacity="0.6" />
-              <circle cx="134" cy="58" r="2.5" fill="#78350f" opacity="0.6" />
-              <path d="M112 74 Q120 80 128 74" stroke="#b45309" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+              {/* Legs behind the torso */}
+              <path d="M82 294 C82 330 80 371 74 409 C72 423 67 432 65 437 C75 444 94 443 99 437 C103 425 108 374 112 315 Z"
+                fill="url(#skin3d)" stroke="#b86d57" strokeWidth="1.6" filter="url(#softShadow)"/>
+              <path d="M128 315 C132 374 137 425 141 437 C146 443 165 444 175 437 C173 432 168 423 166 409 C160 371 158 330 158 294 Z"
+                fill="url(#skin3d)" stroke="#b86d57" strokeWidth="1.6" filter="url(#softShadow)"/>
+
+              {/* Shoes */}
+              <ellipse cx="82" cy="438" rx="22" ry="7" fill="#eff7f7" stroke="#c5dddd"/>
+              <ellipse cx="158" cy="438" rx="22" ry="7" fill="#eff7f7" stroke="#c5dddd"/>
 
               {/* Neck */}
-              <rect x="108" y="100" width="24" height="20" rx="4" fill="url(#bodySkin)" stroke="#d97706" strokeWidth="2" />
+              <path d="M106 91 C107 105 105 112 99 120 L141 120 C135 111 133 104 134 91Z" fill="url(#skin3d)"/>
 
-              {/* Torso & Abdomen */}
-              <path
-                d="M74 120 C58 124 48 136 44 154 C38 180 34 220 32 245 C32 254 44 256 48 246 C54 228 60 190 66 175 L66 280 C66 295 72 305 90 310 L94 310 L102 260 L138 260 L146 310 L150 310 C168 305 174 295 174 280 L174 175 C180 190 186 228 192 246 C196 256 208 254 208 245 C206 220 202 180 196 154 C192 136 182 124 166 120 Z"
-                fill="url(#bodySkin)"
-                stroke="#d97706"
-                strokeWidth="2.5"
-              />
+              {/* Torso base / shirt */}
+              <path d="M77 116 C62 120 53 135 50 157 L44 245 C43 254 49 259 56 256 L67 204 L70 286 C71 300 82 310 98 313 L120 318 L142 313 C158 310 169 300 170 286 L173 204 L184 256 C191 259 197 254 196 245 L190 157 C187 135 178 120 163 116 L143 109 L97 109Z"
+                fill="url(#shirt3d)" stroke="#0d6f61" strokeWidth="2" filter="url(#softShadow)"/>
 
-              {/* Chest Accent lines */}
-              <path d="M96 155 Q120 162 144 155" stroke="#d97706" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" fill="none" />
-              <path d="M102 225 Q120 230 138 225" stroke="#d97706" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" fill="none" />
+              {/* Shirt collar */}
+              <path d="M97 110 L120 137 L143 110 L136 106 C129 115 111 115 104 106Z" fill="#e8fffa" opacity="0.9"/>
+              <path d="M120 137 L120 295" stroke="#075d53" strokeOpacity="0.22" strokeWidth="2"/>
 
-              {/* Left Leg */}
-              <path
-                d="M84 310 L80 395 C78 412 76 430 70 438 C64 446 84 448 94 444 C100 436 104 416 106 395 L114 310 Z"
-                fill="url(#bodySkin)"
-                stroke="#d97706"
-                strokeWidth="2.5"
-              />
+              {/* Semi-transparent anatomical window */}
+              <g clipPath="url(#torsoClip)">
+                <rect x="66" y="132" width="108" height="165" fill="url(#glassBody)"/>
 
-              {/* Right Leg */}
-              <path
-                d="M126 310 L134 395 C136 416 140 436 146 444 C156 448 176 446 170 438 C164 430 162 412 160 395 L156 310 Z"
-                fill="url(#bodySkin)"
-                stroke="#d97706"
-                strokeWidth="2.5"
-              />
+                {/* Rib cage */}
+                <g opacity="0.48" stroke="#fff8ef" strokeWidth="2.1">
+                  <path d="M85 151 C75 166 76 190 87 204"/>
+                  <path d="M155 151 C165 166 164 190 153 204"/>
+                  <path d="M85 160 Q120 174 155 160"/>
+                  <path d="M82 174 Q120 187 158 174"/>
+                  <path d="M81 189 Q120 201 159 189"/>
+                  <path d="M84 204 Q120 214 156 204"/>
+                </g>
+
+                {/* Lungs */}
+                <g filter="url(#organShadow)">
+                  <path d="M117 153 C103 147 91 158 87 179 C84 196 91 213 108 218 C114 215 117 204 118 187Z" fill="url(#lung3d)" opacity="0.94"/>
+                  <path d="M123 153 C137 147 149 158 153 179 C156 196 149 213 132 218 C126 215 123 204 122 187Z" fill="url(#lung3d)" opacity="0.94"/>
+                  <path d="M120 151 L120 211" stroke="#f5d4d7" strokeWidth="3"/>
+                </g>
+
+                {/* Heart */}
+                <g filter="url(#organShadow)">
+                  <path d="M120 166 C111 154 96 161 99 174 C102 187 115 197 120 203 C125 197 138 187 141 174 C144 161 129 154 120 166Z" fill="url(#heart3d)"/>
+                  <path d="M106 169 C111 166 115 169 117 173" stroke="#ffb3b7" strokeWidth="2" strokeLinecap="round" opacity="0.7"/>
+                  <path d="M126 166 L132 157 M129 169 L137 164" stroke="#6d1730" strokeWidth="2" strokeLinecap="round"/>
+                </g>
+
+                {/* Liver */}
+                <path d="M78 213 C92 205 108 207 119 214 C115 229 98 237 80 232 C74 226 74 219 78 213Z" fill="#9b4d34" opacity="0.95" filter="url(#organShadow)"/>
+
+                {/* Stomach */}
+                <path d="M128 212 C142 209 151 219 146 231 C143 239 132 244 126 237 C123 232 126 226 130 223 C135 218 130 214 128 212Z" fill="url(#organWarm)" filter="url(#organShadow)"/>
+
+                {/* Kidneys */}
+                <path d="M92 232 C84 227 78 234 80 245 C82 254 90 258 97 252 C100 246 99 237 92 232Z" fill="#a94b48" filter="url(#organShadow)"/>
+                <path d="M148 232 C156 227 162 234 160 245 C158 254 150 258 143 252 C140 246 141 237 148 232Z" fill="#a94b48" filter="url(#organShadow)"/>
+
+                {/* Intestines */}
+                <path d="M91 258 C102 249 139 249 149 258 C154 267 145 276 137 271 C130 266 125 276 118 271 C111 266 106 276 99 271 C92 268 87 264 91 258Z"
+                  fill="none" stroke="#f28f72" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M92 258 C103 249 137 250 148 258" stroke="#ffd1b9" strokeWidth="2" opacity="0.75" fill="none"/>
+              </g>
+
+              {/* Arms */}
+              <path d="M76 123 C63 137 58 169 55 205 L48 245 C47 252 51 257 57 255 L68 207 L76 172Z"
+                fill="url(#skin3d)" stroke="#b86d57" strokeWidth="1.6" filter="url(#softShadow)"/>
+              <path d="M164 123 C177 137 182 169 185 205 L192 245 C193 252 189 257 183 255 L172 207 L164 172Z"
+                fill="url(#skin3d)" stroke="#b86d57" strokeWidth="1.6" filter="url(#softShadow)"/>
+
+              {/* Hands */}
+              <path d="M48 244 C41 243 37 249 40 254 C43 259 51 260 57 255 L61 249 C57 246 53 244 48 244Z" fill="url(#skin3d)"/>
+              <path d="M192 244 C199 243 203 249 200 254 C197 259 189 260 183 255 L179 249 C183 246 187 244 192 244Z" fill="url(#skin3d)"/>
+
+              {/* Face */}
+              <ellipse cx="120" cy="62" rx="43" ry="45" fill="url(#faceGlow)" stroke="#b86d57" strokeWidth="1.8" filter="url(#softShadow)"/>
+
+              {/* Ears */}
+              <ellipse cx="77" cy="66" rx="8" ry="13" fill="url(#skin3d)" stroke="#b86d57" strokeWidth="1.5"/>
+              <ellipse cx="163" cy="66" rx="8" ry="13" fill="url(#skin3d)" stroke="#b86d57" strokeWidth="1.5"/>
+              <path d="M75 65 Q80 60 82 68 Q79 75 75 70" stroke="#bd755d" strokeWidth="1.5" fill="none" opacity="0.75"/>
+              <path d="M165 65 Q160 60 158 68 Q161 75 165 70" stroke="#bd755d" strokeWidth="1.5" fill="none" opacity="0.75"/>
+
+              {/* Hair mass + highlights */}
+              <path d="M78 51 C75 27 93 12 118 15 C145 10 164 28 163 55 C154 45 148 38 139 35 C130 45 116 49 101 45 C94 52 87 57 78 60Z" fill="url(#hair3d)" filter="url(#softShadow)"/>
+              <path d="M91 31 Q104 18 116 24 M118 22 Q133 17 146 29 M102 40 Q119 30 134 29" stroke="#8c5b52" strokeWidth="3" strokeLinecap="round" opacity="0.55"/>
+
+              {/* Brows */}
+              <path d="M92 56 Q101 50 110 55" stroke="#402724" strokeWidth="4" strokeLinecap="round"/>
+              <path d="M130 55 Q139 50 148 56" stroke="#402724" strokeWidth="4" strokeLinecap="round"/>
+
+              {/* Big expressive eyes */}
+              <ellipse cx="101" cy="66" rx="11" ry="14" fill="#fff"/>
+              <ellipse cx="139" cy="66" rx="11" ry="14" fill="#fff"/>
+              <ellipse cx="102" cy="68" rx="7" ry="9" fill="#4b2d2a"/>
+              <ellipse cx="138" cy="68" rx="7" ry="9" fill="#4b2d2a"/>
+              <ellipse cx="104" cy="65" rx="3" ry="4" fill="#161112"/>
+              <ellipse cx="136" cy="65" rx="3" ry="4" fill="#161112"/>
+              <circle cx="99" cy="63" r="2.5" fill="#fff"/>
+              <circle cx="135" cy="63" r="2.5" fill="#fff"/>
+
+              {/* Nose */}
+              <path d="M120 67 Q115 78 120 81 Q125 80 125 76" stroke="#bd755d" strokeWidth="2" strokeLinecap="round" fill="none"/>
+
+              {/* Smile + cheeks */}
+              <ellipse cx="91" cy="83" rx="9" ry="4" fill="#f58d88" opacity="0.35"/>
+              <ellipse cx="149" cy="83" rx="9" ry="4" fill="#f58d88" opacity="0.35"/>
+              <path d="M108 84 Q120 96 132 84" stroke="#9e3e46" strokeWidth="3" strokeLinecap="round" fill="#ffb4b0"/>
+              <path d="M113 88 Q120 92 127 88" stroke="#fff" strokeWidth="2" strokeLinecap="round" opacity="0.85"/>
+
+              {/* Tiny anatomy badge */}
+              <circle cx="151" cy="125" r="13" fill="#fff" fillOpacity="0.9" stroke="#22a88c" strokeWidth="2"/>
+              <path d="M151 118 L151 132 M144 125 L158 125" stroke="#22a88c" strokeWidth="3" strokeLinecap="round"/>
+              <path d="M146 120 Q151 114 156 120" stroke="#22a88c" strokeWidth="1.5" fill="none" opacity="0.65"/>
+
+              {/* Soft highlight over the body for a toy-like 3D finish */}
+              <path d="M75 126 C66 154 65 204 71 245" stroke="#fff" strokeWidth="5" strokeLinecap="round" opacity="0.16"/>
+              <path d="M162 128 C173 160 175 202 169 244" stroke="#0b6257" strokeWidth="5" strokeLinecap="round" opacity="0.13"/>
             </svg>
 
             {/* Targeted Organ Hotspots */}
