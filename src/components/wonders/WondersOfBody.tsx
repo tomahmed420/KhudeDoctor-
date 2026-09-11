@@ -17,6 +17,7 @@ import {
 } from "@/data/organsData";
 import { OrganCard } from "./OrganCard";
 import { HomeHub } from "./HomeHub";
+import { IntroSequence } from "./IntroSequence";
 import { OrganModal } from "./OrganModal";
 import { BodySilhouette } from "./BodySilhouette";
 import { QuizMode } from "./QuizMode";
@@ -27,7 +28,7 @@ type QuizModeType = "quick" | "challenge" | null;
 
 export const WondersOfBody = () => {
   const [viewMode, setViewMode] = useState<ViewMode>("home");
-  const [showIntro, setShowIntro] = useState(() => { try { return localStorage.getItem("khude_doctor_intro_seen_v1") !== "1"; } catch { return false; } });
+  const [showIntro, setShowIntro] = useState(true);
   const [selectedOrgan, setSelectedOrgan] = useState<Organ | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quizMode, setQuizMode] = useState<QuizModeType>(null);
@@ -76,29 +77,7 @@ export const WondersOfBody = () => {
     setTimeout(() => setSelectedOrgan(null), 300);
   };
 
-  const finishIntro = () => {
-    try { localStorage.setItem("khude_doctor_intro_seen_v1", "1"); } catch { /* Ignore storage errors */ }
-    setShowIntro(false);
-  };
-
-  if (showIntro) {
-    return <div className="fixed inset-0 z-[100] flex min-h-screen items-center justify-center overflow-hidden bg-emerald-950 px-5">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(52,211,153,.24),transparent_45%),radial-gradient(circle_at_80%_80%,rgba(251,191,36,.16),transparent_35%)]" />
-      <div className="relative z-10 flex flex-col items-center text-center">
-        <motion.div initial={{ scale: .55, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: .55 }} className="relative flex h-40 w-40 items-center justify-center rounded-full border border-emerald-300/20 bg-white/10 shadow-2xl backdrop-blur-md sm:h-48 sm:w-48">
-          <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 1.8, repeat: Infinity }} className="text-7xl sm:text-8xl">🧑‍⚕️</motion.div>
-          <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: .45 }} className="absolute -left-2 top-5 text-3xl">🫀</motion.span>
-          <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: .65 }} className="absolute -right-2 top-10 text-3xl">🧠</motion.span>
-          <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: .85 }} className="absolute bottom-3 right-4 text-3xl">🫁</motion.span>
-        </motion.div>
-        <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .75 }} className="mt-6 font-bangla text-sm font-bold text-emerald-100">চলো, নিজের শরীরকে চিনে নিই!</motion.p>
-        <motion.h1 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .95 }} className="mt-1 font-bangla text-3xl font-black text-white sm:text-4xl">খুদে ডাক্তার</motion.h1>
-      </div>
-      <motion.div initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ delay: 2.35, duration: .45 }} onAnimationComplete={finishIntro} className="pointer-events-none absolute inset-0 bg-emerald-950" />
-    </div>;
-  }
-
-  // Active Quiz View
+  const finishIntro = () => setShowIntro(false);\n\n  // Active Quiz View
   if (quizMode) {
     return (
       <div className="min-h-screen bg-background pb-20 md:pb-0">
