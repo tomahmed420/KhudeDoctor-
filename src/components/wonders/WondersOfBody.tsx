@@ -77,7 +77,11 @@ export const WondersOfBody = () => {
     setTimeout(() => setSelectedOrgan(null), 300);
   };
 
-  const finishIntro = () => setShowIntro(false);\n\n  // Active Quiz View
+  const finishIntro = () => setShowIntro(false);
+
+  if (showIntro) return <IntroSequence onFinish={finishIntro} />;
+
+  // Active Quiz View
   if (quizMode) {
     return (
       <div className="min-h-screen bg-background pb-20 md:pb-0">
