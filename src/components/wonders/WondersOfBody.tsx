@@ -259,16 +259,18 @@ export const WondersOfBody = () => {
                     </div>
 
                     {/* Organs in this chapter */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-4">
-                      {chapterOrgans.map((organ) => (
-                        <OrganCard
-                          key={organ.id}
-                          organ={organ}
-                          onClick={() => handleOrganClick(organ)}
-                          isExplored={exploredIds.includes(organ.id)}
-                        />
-                      ))}
-                    </div>
+                    <Suspense fallback={<LazyFallback />}>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-4">
+                        {chapterOrgans.map((organ) => (
+                          <OrganCard
+                            key={organ.id}
+                            organ={organ}
+                            onClick={() => handleOrganClick(organ)}
+                            isExplored={exploredIds.includes(organ.id)}
+                          />
+                        ))}
+                      </div>
+                    </Suspense>
                   </section>
                 );
               })}
