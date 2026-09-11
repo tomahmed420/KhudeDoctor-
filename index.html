@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Fast connection setup for the mobile intro video and Google Fonts -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link rel="dns-prefetch" href="//res.cloudinary.com" />
     <!-- Google Search Console ownership verification -->
     <meta name="google-site-verification" content="PaSbqCqPQjjnylZ0t9KvRtGhwZA5kfdds-0xwkR3iaI" />
     <!-- Google Fonts for Bangla & UI -->
@@ -60,13 +63,8 @@
           "name": "খুদে ডাক্তার | KhudeDoctor",
           "alternateName": ["KhudeDoctor", "খুদে ডাক্তার", "Khude Doctor"],
           "url": "https://khude-doctor.vercel.app/",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://khude-doctor.vercel.app/favicon.png"
-          },
-          "sameAs": [
-            "https://www.facebook.com/KhudeDoctor"
-          ]
+          "logo": {"@type": "ImageObject", "url": "https://khude-doctor.vercel.app/favicon.png"},
+          "sameAs": ["https://www.facebook.com/KhudeDoctor"]
         },
         {
           "@type": "WebSite",
@@ -75,9 +73,7 @@
           "name": "খুদে ডাক্তার | KhudeDoctor",
           "alternateName": ["KhudeDoctor", "খুদে ডাক্তার"],
           "inLanguage": ["bn-BD", "en"],
-          "publisher": {
-            "@id": "https://khude-doctor.vercel.app/#organization"
-          }
+          "publisher": {"@id": "https://khude-doctor.vercel.app/#organization"}
         },
         {
           "@type": "WebApplication",
@@ -89,19 +85,13 @@
           "operatingSystem": "All",
           "description": "শিশুদের জন্য মানবদেহের অঙ্গ-প্রত্যঙ্গ ও প্রাথমিক বিজ্ঞান শিক্ষার আকর্ষণীয় ডিজিটাল পাঠশালা।",
           "inLanguage": ["bn", "en"],
-          "audience": {
-            "@type": "Audience",
-            "audienceType": "Children, Students, Parents"
-          },
-          "publisher": {
-            "@id": "https://khude-doctor.vercel.app/#organization"
-          }
+          "audience": {"@type": "Audience", "audienceType": "Children, Students, Parents"},
+          "publisher": {"@id": "https://khude-doctor.vercel.app/#organization"}
         }
       ]
     }
     </script>
   </head>
-
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
