@@ -106,16 +106,16 @@ export const HomeHub = ({
                   <text x="120" y="190" textAnchor="middle" fontFamily="Nunito, sans-serif" fontSize="21" fontWeight="900" letterSpacing="0.2" fill="#fff">DOCTOR</text>
                 </g>
 
-                <motion.g animate={{ opacity: [0.55, 1, 0.55], scale: [0.96, 1.05, 0.96] }} transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }} style={{ transformOrigin: "198px 45px" }}>
+                <g style={{ transformOrigin: "198px 45px" }}>
                   <circle cx="198" cy="45" r="4" fill="#ffd24a" />
                   <path d="M198 33v24M186 45h24" stroke="#ffd24a" strokeWidth="3" strokeLinecap="round" />
-                </motion.g>
-                <motion.g animate={{ opacity: [0.35, 0.9, 0.35], y: [0, -4, 0] }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}>
+                </g>
+                <g>
                   <circle cx="28" cy="75" r="3.5" fill="#ff6d83" />
                   <circle cx="214" cy="153" r="4" fill="#55d6a8" />
                 </motion.g>
               </svg>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
