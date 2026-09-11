@@ -58,7 +58,7 @@ const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       if (!videoReady) finish();
-    }, 2500);
+    }, 2200);
     return () => window.clearTimeout(timer);
   }, [videoReady]);
 
@@ -76,7 +76,14 @@ const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
         muted={false}
         playsInline
         preload="auto"
-        onCanPlay={() => setVideoReady(true)}
+        onCanPlay={(event) => {
+          setVideoReady(true);
+          const video = event.currentTarget;
+          void video.play().catch(() => {
+            // Some mobile browsers block autoplay with audio. Keep the site usable.
+            finish();
+          });
+        }}
         onError={finish}
         onEnded={finish}
       >
