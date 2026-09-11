@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const MOBILE_INTRO_VIDEO =
-  "https://res.cloudinary.com/dqzuwf0ra/video/upload/f_auto,q_auto/v1789132448/intro.mp4";
+  "https://res.cloudinary.com/dqzuwf0ra/video/upload/f_mp4,vc_h264,ac_aac,q_auto/v1789132448/intro.mp4";
 
 const MobileVideoIntro = ({ onFinish }: { onFinish: () => void }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
