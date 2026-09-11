@@ -30,7 +30,7 @@ export const HomeHub = ({
         <div className="relative z-10 grid items-center gap-5 md:grid-cols-[1.15fr_.85fr]">
           <div>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1 text-[11px] font-bangla font-bold text-emerald-700 dark:text-emerald-300">
-              <Sparkles className="h-3.5 w-3.5" /> মানবদেহের মজার অভিযান
+              <Sparkles className="h-3.5 w-3.5" /> মানবদেহের মজার জগৎ
             </span>
             <h2 className="mt-3 font-bangla text-2xl font-black leading-tight sm:text-4xl">
               হাই, খুদে ডাক্তার!
@@ -43,7 +43,7 @@ export const HomeHub = ({
               onClick={() => onOrganPick(firstUnexplored.id)}
               className="mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-5 font-bangla text-sm font-black text-white shadow-md transition-transform hover:-translate-y-0.5 active:scale-95"
             >
-              অভিযান শুরু করি <ArrowRight className="h-4 w-4" />
+              শুরু করি <ArrowRight className="h-4 w-4" />
             </button>
           </div>
 
@@ -67,7 +67,7 @@ export const HomeHub = ({
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <p className="font-bangla text-xs font-bold text-amber-700 dark:text-amber-300">আজকের অভিযান</p>
+                <p className="font-bangla text-xs font-bold text-amber-700 dark:text-amber-300">আজ কী শিখব?</p>
                 <h3 className="font-bangla text-lg font-black">একটা নতুন অঙ্গ আবিষ্কার করো!</h3>
               </div>
               <button type="button" onClick={() => onOrganPick(firstUnexplored.id)} className="rounded-xl px-3 py-2 font-bangla text-xs font-black text-amber-700 hover:bg-amber-500/10 dark:text-amber-300">
