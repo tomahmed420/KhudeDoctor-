@@ -57,17 +57,17 @@ export const OrganCard = ({ organ, onClick, isExplored = false }: OrganCardProps
 
   return (
     <motion.div
-      whileHover={{ scale: 1.03, y: -4 }}
+      whileHover={{ scale: 1.02, y: -3 }}
       whileTap={{ scale: 0.98 }}
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      onClick={handleCardClick}
+      onClick={handleCardClick} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleCardClick(); }}
       className={`
         ${colors.bg} ${colors.border}
-        relative cursor-pointer rounded-3xl border-2 border-solid p-4 sm:p-5
+        relative cursor-pointer rounded-2xl sm:rounded-3xl border-2 border-solid p-3 sm:p-5
         shadow-sm hover:shadow-md transition-shadow duration-300
-        flex flex-col items-center text-center gap-2.5 select-none
+        flex flex-col items-center text-center gap-2 select-none min-h-[190px] sm:min-h-0
       `}
     >
       {/* Exploration Status Badge */}
@@ -81,21 +81,22 @@ export const OrganCard = ({ organ, onClick, isExplored = false }: OrganCardProps
       <motion.div
         animate={{ y: [0, -3, 0] }}
         transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
-        className={`${colors.icon} p-3 rounded-2xl bg-card/70 shadow-xs mt-1`}
+        className={`${colors.icon} p-2.5 sm:p-3 rounded-2xl bg-card/70 shadow-xs mt-1`}
       >
-        <IconComponent size={38} strokeWidth={1.8} />
+        <IconComponent size={32} className="sm:hidden" strokeWidth={1.8} />
+        <IconComponent size={38} className="hidden sm:block" strokeWidth={1.8} />
       </motion.div>
       
       <div>
-        <h3 className="font-bangla font-bold text-xl sm:text-2xl text-foreground">{organ.name}</h3>
-        <p className="text-xs sm:text-sm text-muted-foreground font-sans font-semibold tracking-wide">{organ.nameBn}</p>
+        <h3 className="font-bangla font-bold text-base sm:text-2xl text-foreground">{organ.name}</h3>
+        <p className="text-[9px] sm:text-sm text-muted-foreground font-sans font-semibold tracking-wide">{organ.nameBn}</p>
       </div>
 
-      <p className="text-xs sm:text-sm text-foreground/80 line-clamp-2 font-bangla leading-relaxed">
+      <p className="text-[11px] sm:text-sm text-foreground/80 line-clamp-2 font-bangla leading-relaxed">
         {organ.simpleFunction.split('!')[0]}!
       </p>
 
-      <div className="w-full pt-2 mt-auto flex items-center justify-between border-t border-foreground/10 text-xs font-bangla font-semibold text-primary">
+      <div className="w-full pt-2 mt-auto flex items-center justify-between border-t border-foreground/10 text-[10px] sm:text-xs font-bangla font-semibold text-primary">
         <span>বিস্তারিত জানো →</span>
         {isSupported && (
           <motion.button
