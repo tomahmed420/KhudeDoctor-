@@ -79,8 +79,6 @@ export const WondersOfBody = () => {
 
   const finishIntro = () => setShowIntro(false);
 
-  if (showIntro) return <IntroSequence onFinish={finishIntro} />;
-
   // Active Quiz View
   if (quizMode) {
     return (
@@ -92,6 +90,7 @@ export const WondersOfBody = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col selection:bg-primary/20">
+      {showIntro && <IntroSequence onFinish={finishIntro} />}
       
       {/* 1. App Header */}
       <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-md border-b border-border/80 shadow-xs">
