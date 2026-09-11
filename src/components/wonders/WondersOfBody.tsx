@@ -14,7 +14,7 @@ import {
   learningChapters, 
   type Organ 
 } from "@/data/organsData";
-import { HomeHub } from "./HomeHub";
+const HomeHub = lazy(() => import("./HomeHub").then((module) => ({ default: module.HomeHub })));
 import { IntroSequence } from "./IntroSequence";
 import { soundEffects } from "@/utils/soundEffects";
 
