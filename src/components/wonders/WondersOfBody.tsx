@@ -113,9 +113,7 @@ export const WondersOfBody = () => {
                       KhudeDoctor
                     </span>
                   </div>
-                  <p className="text-muted-foreground font-bangla font-semibold text-[11px] sm:text-xs">
-                    মানবদেহের জাদুকরী পাঠশালা • ক্লাস ৩-৪ শিশুদের জন্য
-                  </p>
+
                 </div>
               </div>
             </button>
