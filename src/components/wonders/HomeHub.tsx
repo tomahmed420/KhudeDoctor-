@@ -48,15 +48,81 @@ export const HomeHub = ({
           </div>
 
           <div className="mx-auto flex w-full max-w-xs items-center justify-center">
-            <div className="relative flex h-44 w-44 items-center justify-center rounded-full border border-emerald-500/20 bg-card/80 shadow-lg sm:h-52 sm:w-52">
-              <motion.div animate={{ y:[0,-5,0], rotate:[-2,2,-2] }} transition={{duration:2.4,repeat:Infinity,ease:"easeInOut"}} className="relative flex h-28 w-20 items-center justify-center rounded-[2rem] border-2 border-emerald-500/20 bg-emerald-500/10 shadow-inner">
-                <div className="absolute -top-7 h-12 w-12 rounded-full border-2 border-amber-500/30 bg-amber-500/10" />
-                <div className="absolute left-1/2 top-9 -translate-x-1/2 rounded-xl bg-rose-500/10 p-1.5"><HeartPulse className="h-7 w-7 text-rose-500" /></div>
-              </motion.div>
-              <motion.div animate={{x:[0,-4,0],y:[0,3,0],rotate:[0,5,0]}} transition={{duration:2.1,repeat:Infinity}} className="absolute left-3 top-8 rounded-2xl border border-rose-500/20 bg-rose-500/10 p-2.5 shadow-md"><HeartPulse className="h-7 w-7 text-rose-500" /></motion.div>
-              <motion.div animate={{x:[0,4,0],y:[0,-3,0],rotate:[0,-5,0]}} transition={{duration:2.5,repeat:Infinity}} className="absolute right-3 top-6 rounded-2xl border border-violet-500/20 bg-violet-500/10 p-2.5 shadow-md"><Brain className="h-7 w-7 text-violet-500" /></motion.div>
-              <motion.div animate={{y:[0,4,0]}} transition={{duration:2.2,repeat:Infinity}} className="absolute bottom-5 right-7 rounded-2xl border border-sky-500/20 bg-sky-500/10 p-2.5 shadow-md"><Wind className="h-7 w-7 text-sky-500" /></motion.div>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 8, scale: 0.96 }}
+              animate={{ opacity: 1, y: [0, -5, 0], scale: 1, rotate: [-1.2, 1.2, -1.2] }}
+              transition={{ opacity: { duration: 0.45 }, scale: { duration: 0.45, ease: "easeOut" }, y: { duration: 3.4, repeat: Infinity, ease: "easeInOut" }, rotate: { duration: 4.6, repeat: Infinity, ease: "easeInOut" } }}
+              className="relative h-44 w-44 sm:h-52 sm:w-52"
+              aria-label="খুদে ডাক্তার লোগো"
+            >
+              <svg viewBox="0 0 240 240" className="h-full w-full overflow-visible" role="img" aria-hidden="true">
+                <defs>
+                  <linearGradient id="kd-card" x1="20" y1="10" x2="210" y2="235" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="#6fd8ff" />
+                    <stop offset="0.5" stopColor="#39bff4" />
+                    <stop offset="1" stopColor="#159fe0" />
+                  </linearGradient>
+                  <linearGradient id="kd-edge" x1="25" y1="15" x2="210" y2="225" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="#ffffff" stopOpacity="0.96" />
+                    <stop offset="0.5" stopColor="#d8f5ff" stopOpacity="0.8" />
+                    <stop offset="1" stopColor="#8edfff" stopOpacity="0.92" />
+                  </linearGradient>
+                  <linearGradient id="kd-plus" x1="90" y1="76" x2="158" y2="144" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="#ff7474" />
+                    <stop offset="0.55" stopColor="#ff4e4e" />
+                    <stop offset="1" stopColor="#e62f3f" />
+                  </linearGradient>
+                  <linearGradient id="kd-tube" x1="55" y1="50" x2="150" y2="188" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="#6ff0dc" />
+                    <stop offset="0.55" stopColor="#22c8b1" />
+                    <stop offset="1" stopColor="#0e9f93" />
+                  </linearGradient>
+                  <filter id="kd-shadow" x="-30%" y="-30%" width="160%" height="180%">
+                    <feDropShadow dx="0" dy="8" stdDeviation="7" floodColor="#0c5d86" floodOpacity="0.28" />
+                  </filter>
+                  <filter id="kd-soft" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="7" />
+                  </filter>
+                </defs>
+
+                <ellipse cx="120" cy="222" rx="62" ry="10" fill="#0b6f98" opacity="0.16" filter="url(#kd-soft)" />
+
+                <g filter="url(#kd-shadow)">
+                  <rect x="26" y="18" width="188" height="188" rx="43" fill="url(#kd-edge)" />
+                  <rect x="35" y="27" width="170" height="170" rx="36" fill="url(#kd-card)" />
+                  <path d="M48 34h94c28 0 50 22 50 50v9c-19-21-48-34-81-34-31 0-57 9-76 25V70c0-20 7-31 13-36Z" fill="#fff" opacity="0.18" />
+                  <path d="M39 160c35 18 86 24 166-9v35c0 6-5 11-11 11H47c-5 0-8-4-8-9Z" fill="#087fba" opacity="0.14" />
+
+                  <g fill="none" stroke="url(#kd-tube)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M73 69c-14 6-18 20-14 35l8 25c4 13 15 21 29 21h24c14 0 25-7 29-20l7-24c4-14 0-27-14-35" />
+                    <path d="M91 145c-3 17 7 27 23 27h7c12 0 19-6 19-16" />
+                  </g>
+                  <circle cx="70" cy="69" r="8" fill="#18bba7" />
+                  <circle cx="143" cy="69" r="8" fill="#18bba7" />
+
+                  <circle cx="106" cy="101" r="31" fill="#9be7f6" stroke="#eaffff" strokeWidth="5" />
+                  <circle cx="95" cy="91" r="10" fill="#dffbff" opacity="0.75" />
+                  <circle cx="97" cy="102" r="3.7" fill="#1d4255" />
+                  <circle cx="117" cy="102" r="3.7" fill="#1d4255" />
+                  <path d="M98 114c6 7 13 7 19 0" fill="none" stroke="#1d4255" strokeWidth="4" strokeLinecap="round" />
+
+                  <path d="M151 83h23c7 0 12 5 12 12v23c0 7-5 12-12 12h-23c-7 0-12-5-12-12V95c0-7 5-12 12-12Z" fill="url(#kd-plus)" />
+                  <path d="M158 91h9v9h9v10h-9v10h-10v-10h-9V100h10Z" fill="#fff" />
+
+                  <text x="120" y="173" textAnchor="middle" fontFamily="Nunito, sans-serif" fontSize="17" fontWeight="900" letterSpacing="0.7" fill="#fff">KHUDE</text>
+                  <text x="120" y="190" textAnchor="middle" fontFamily="Nunito, sans-serif" fontSize="21" fontWeight="900" letterSpacing="0.2" fill="#fff">DOCTOR</text>
+                </g>
+
+                <motion.g animate={{ opacity: [0.55, 1, 0.55], scale: [0.96, 1.05, 0.96] }} transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }} style={{ transformOrigin: "198px 45px" }}>
+                  <circle cx="198" cy="45" r="4" fill="#ffd24a" />
+                  <path d="M198 33v24M186 45h24" stroke="#ffd24a" strokeWidth="3" strokeLinecap="round" />
+                </motion.g>
+                <motion.g animate={{ opacity: [0.35, 0.9, 0.35], y: [0, -4, 0] }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}>
+                  <circle cx="28" cy="75" r="3.5" fill="#ff6d83" />
+                  <circle cx="214" cy="153" r="4" fill="#55d6a8" />
+                </motion.g>
+              </svg>
+            </motion.div>
           </div>
         </div>
       </section>
