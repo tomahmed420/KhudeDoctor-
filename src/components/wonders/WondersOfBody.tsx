@@ -115,6 +115,9 @@ export const WondersOfBody = () => {
                   </div>
 
                 </div>
+                <p className="text-muted-foreground font-bangla font-semibold text-[11px] sm:text-xs">
+                  মানবদেহের জাদুকরী পাঠশালা
+                </p>
               </div>
             </button>
 
