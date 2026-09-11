@@ -161,7 +161,7 @@ export const HomeHub = ({
         </div>
       </section>
 
-      <div className="grid gap-3 md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-2 content-visibility-auto" style={{ containIntrinsicSize: "0 220px" }}>
         <section className="rounded-3xl border border-border/80 bg-card p-4 shadow-xs sm:p-5">
           <div className="mb-2 flex items-center justify-between">
             <span className="flex items-center gap-1.5 font-bangla text-xs font-bold text-muted-foreground"><Trophy className="h-4 w-4 text-amber-500" /> আমার অগ্রগতি</span>
