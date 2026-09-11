@@ -151,3 +151,20 @@ All colors MUST be HSL.
     font-family: 'Hind Siliguri', 'Nunito', sans-serif;
   }
 }
+
+
+@keyframes kd-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-5px) scale(1.02); }
+}
+@keyframes kd-intro {
+  from { opacity: 0; transform: scale(.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes kd-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.animate-kd-float { animation: kd-float 3.4s ease-in-out infinite; }
+.animate-kd-intro { animation: kd-intro .25s ease-out both; }
+.animate-kd-progress { animation: kd-progress .35s linear both; }
