@@ -267,7 +267,7 @@ export const WondersOfBody = () => {
                   </section>
                 );
               })}
-            </motion.div>
+            </div>
           )}
 
           {/* VIEW 2: Human Body Silhouette Explorer */}
@@ -283,7 +283,7 @@ export const WondersOfBody = () => {
               <Suspense fallback={<LazyFallback />}>
                 <BodySilhouette organs={organsData} onOrganClick={handleOrganClick} />
               </Suspense>
-            </motion.div>
+            </div>
           )}
 
           {/* VIEW 3: Quiz Selection Mission Hub */}
@@ -350,7 +350,7 @@ export const WondersOfBody = () => {
                   </span>
                 </button>
               </div>
-            </motion.div>
+            </div>
           )}
 
         </div>
