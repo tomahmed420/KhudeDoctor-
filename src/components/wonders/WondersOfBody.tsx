@@ -196,17 +196,19 @@ export const WondersOfBody = () => {
       <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 flex-1 max-w-6xl pb-24 md:pb-6">
 
         {viewMode === "home" && (
-          <HomeHub
-            exploredCount={exploredCount}
-            totalCount={totalCount}
-            progressPercent={progressPercent}
-            exploredIds={exploredIds}
-            onNavigate={changeView}
-            onOrganPick={(organId) => {
-              const organ = organsData.find((item) => item.id === organId);
-              if (organ) handleOrganClick(organ);
-            }}
-          />
+          <Suspense fallback={<LazyFallback />}>
+            <HomeHub
+              exploredCount={exploredCount}
+              totalCount={totalCount}
+              progressPercent={progressPercent}
+              exploredIds={exploredIds}
+              onNavigate={changeView}
+              onOrganPick={(organId) => {
+                const organ = organsData.find((item) => item.id === organId);
+                if (organ) handleOrganClick(organ);
+              }}
+            />
+          </Suspense>
         )}
 
         {/* View Routing */}
