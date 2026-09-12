@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e0f7ff"/><stop offset="0.55" stop-color="#f7fdff"/><stop offset="1" stop-color="#e8fff6"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0284c7"/><stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ef4444"/><stop offset="1" stop-color="#dc2626"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#075985" flood-opacity=".16"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1080" cy="90" r="170" fill="#38bdf8" opacity=".12"/>
+  <circle cx="120" cy="560" r="190" fill="#34d399" opacity=".10"/>
+
+  <g transform="translate(72 65)" filter="url(#shadow)">
+    <rect width="500" height="500" rx="110" fill="url(#blue)"/>
+    <rect x="13" y="13" width="474" height="474" rx="97" stroke="white" stroke-opacity=".28" stroke-width="13"/>
+    <circle cx="250" cy="250" r="165" fill="white"/>
+    <path d="M225 140h50v80h80v50h-80v80h-50v-80h-80v-50h80v-80Z" fill="url(#red)"/>
+    <path d="M160 225c0 85 180 85 180 0" stroke="#0284c7" stroke-width="20" stroke-linecap="round" fill="none"/>
+    <circle cx="250" cy="310" r="23" fill="#0284c7"/>
+    <circle cx="250" cy="310" r="12" fill="#38bdf8"/>
+  </g>
+
+  <g transform="translate(650 105)">
+    <rect width="470" height="54" rx="27" fill="#ecfdf5" stroke="#10b981" stroke-opacity=".3"/>
+    <text x="235" y="35" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" fill="#047857">🩺 শিশুদের ইন্টারঅ্যাক্টিভ বিজ্ঞান পাঠশালা</text>
+
+    <text x="0" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="900" fill="#0f172a">খুদে ডাক্তার</text>
+    <text x="0" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="800" fill="#0284c7">KhudeDoctor</text>
+
+    <text x="0" y="255" font-family="system-ui, -apple-system, sans-serif" font-size="25" font-weight="700" fill="#334155">
+      নিজের শরীরকে জানি,
+    </text>
+    <text x="0" y="294" font-family="system-ui, -apple-system, sans-serif" font-size="25" font-weight="700" fill="#334155">
+      খেলতে খেলতে বিজ্ঞান শিখি!
+    </text>
+
+    <g transform="translate(0 345)">
+      <rect width="135" height="56" rx="18" fill="#fff" stroke="#ef4444" stroke-opacity=".25"/>
+      <text x="67" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="21" font-weight="800" fill="#dc2626">🫀 অঙ্গ</text>
+      <rect x="150" width="135" height="56" rx="18" fill="#fff" stroke="#8b5cf6" stroke-opacity=".25"/>
+      <text x="217" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="21" font-weight="800" fill="#7c3aed">🧠 মস্তিষ্ক</text>
+      <rect x="300" width="135" height="56" rx="18" fill="#fff" stroke="#06b6d4" stroke-opacity=".25"/>
+      <text x="367" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="21" font-weight="800" fill="#0891b2">🫁 ফুসফুস</text>
+    </g>
+
+    <text x="0" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#64748b">
+      মানবদেহ • পাঠশালা • মজার কুইজ
+    </text>
+  </g>
+</svg>
