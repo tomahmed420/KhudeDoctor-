@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-// https://vitejs.dev/config/
 export default defineConfig(() => ({
   server: {
     host: "0.0.0.0",
@@ -12,6 +11,10 @@ export default defineConfig(() => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      [path.resolve(__dirname, "./src/components/wonders/BodySilhouette.tsx")]: path.resolve(
+        __dirname,
+        "./src/components/wonders/RealisticBodyViewer.tsx",
+      ),
     },
   },
 }));
