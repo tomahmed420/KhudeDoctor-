@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Gamepad2, Sparkles, Trophy, UserRound } from "lucide-react";
+import { ArrowRight, BookOpen, Compass, Gamepad2, HeartHandshake, Lightbulb, Sparkles, Star, Stethoscope, Trophy } from "lucide-react";
 import { funFactSnippets, organsData } from "@/data/organsData";
 
 interface HomeHubProps {
@@ -21,164 +21,244 @@ export const HomeHub = ({
   const firstUnexplored = organsData.find((organ) => !exploredIds.includes(organ.id)) ?? organsData[0];
   const funFact = funFactSnippets[exploredCount % funFactSnippets.length];
 
+  // গ্যামিফাইড ব্যাজ লেভেল
+  const doctorLevel =
+    exploredCount === 0
+      ? "নতুন পরিব্রাজক"
+      : exploredCount < totalCount / 2
+      ? "শিক্ষানবিশ ডাক্তার 🩺"
+      : exploredCount < totalCount
+      ? "চৌকস খুদে সার্জন 🌟"
+      : "মাস্টার ডক্টর 🏆";
+
   return (
-    <div className="space-y-4 sm:space-y-6">
-      <section className="relative overflow-hidden rounded-[2rem] border border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 via-background to-amber-500/10 p-5 sm:p-8">
-        <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-400/15 blur-2xl" />
-        <div className="absolute -bottom-12 left-1/3 h-32 w-32 rounded-full bg-amber-400/15 blur-2xl" />
-        <div className="relative z-10 grid items-center gap-5 md:grid-cols-[1.15fr_.85fr]">
+    <div className="space-y-5 sm:space-y-7">
+      {/* ১. হিরো সেকশন: প্রাণবন্ত ব্যানার ও জীবন্ত ম্যাসকট */}
+      <section className="relative overflow-hidden rounded-3xl border-2 border-emerald-500/25 bg-gradient-to-r from-emerald-50 via-teal-50 to-amber-50 p-6 shadow-sm dark:from-emerald-950/20 dark:via-teal-950/20 dark:to-amber-950/20 sm:p-8">
+        <div className="relative z-10 grid items-center gap-6 md:grid-cols-[1.2fr_.8fr]">
           <div>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1 text-[11px] font-bangla font-bold text-emerald-700 dark:text-emerald-300">
-              <Sparkles className="h-3.5 w-3.5" /> মানবদেহের মজার জগৎ
-            </span>
-            <h2 className="mt-3 font-bangla text-2xl font-black leading-tight sm:text-4xl">
-              হাই, খুদে ডাক্তার!
-            </h2>
-            <p className="mt-2 max-w-xl font-bangla text-sm font-semibold leading-relaxed text-muted-foreground sm:text-base">
-              নিজের শরীরের ভেতরের আশ্চর্য জগতটা আজ একটু আবিষ্কার করবে?
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-600/10 px-3.5 py-1 text-xs font-bangla font-black text-emerald-800 dark:text-emerald-300">
+              <Stethoscope className="h-4 w-4 text-emerald-600" />
+              <span>শরীরের ভেতরের অ্যাডভেঞ্চার!</span>
+            </div>
+            
+            <h1 className="mt-3 font-bangla text-3xl font-black tracking-tight text-slate-800 dark:text-slate-100 sm:text-4xl">
+              হ্যালো খুদে ডাক্তার! 👋
+            </h1>
+            
+            <p className="mt-2 max-w-xl font-bangla text-base font-medium leading-relaxed text-slate-600 dark:text-slate-300">
+              আমাদের শরীর কীভাবে খাবার হজম করে? হার্ট কীভাবে রক্ত পাম্প করে? চলো, এক ক্লিকেই শরীরের ভেতরের জাদুটা দেখে আসি!
             </p>
+
             <button
               type="button"
               onClick={() => onOrganPick(firstUnexplored.id)}
-              className="mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-5 font-bangla text-sm font-black text-white shadow-md transition-transform hover:-translate-y-0.5 active:scale-95"
+              className="mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-6 font-bangla text-base font-black text-white shadow-lg shadow-emerald-600/25 transition-all hover:bg-emerald-700 hover:scale-105 active:scale-95"
             >
-              শুরু করি <ArrowRight className="h-4 w-4" />
+              <span>শরীরের যাত্রা শুরু করো</span>
+              <ArrowRight className="h-5 w-5" />
             </button>
           </div>
 
+          {/* জীবন্ত খুদে ডাক্তার ম্যাসকট (অ্যাপ লোগোর বদলে বন্ধুভাবাপন্ন চরিত্র) */}
           <div className="mx-auto flex w-full max-w-xs items-center justify-center">
-            <div className="relative h-44 w-44 sm:h-52 sm:w-52 animate-kd-float" aria-label="খুদে ডাক্তার লোগো">
-              <svg viewBox="0 0 240 240" className="h-full w-full overflow-visible" role="img" aria-hidden="true">
-                <defs>
-                  <linearGradient id="kd-card" x1="20" y1="10" x2="210" y2="235" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" stopColor="#6fd8ff" />
-                    <stop offset="0.5" stopColor="#39bff4" />
-                    <stop offset="1" stopColor="#159fe0" />
-                  </linearGradient>
-                  <linearGradient id="kd-edge" x1="25" y1="15" x2="210" y2="225" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" stopColor="#ffffff" stopOpacity="0.96" />
-                    <stop offset="0.5" stopColor="#d8f5ff" stopOpacity="0.8" />
-                    <stop offset="1" stopColor="#8edfff" stopOpacity="0.92" />
-                  </linearGradient>
-                  <linearGradient id="kd-plus" x1="90" y1="76" x2="158" y2="144" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" stopColor="#ff7474" />
-                    <stop offset="0.55" stopColor="#ff4e4e" />
-                    <stop offset="1" stopColor="#e62f3f" />
-                  </linearGradient>
-                  <linearGradient id="kd-tube" x1="55" y1="50" x2="150" y2="188" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" stopColor="#6ff0dc" />
-                    <stop offset="0.55" stopColor="#22c8b1" />
-                    <stop offset="1" stopColor="#0e9f93" />
-                  </linearGradient>
-                  <filter id="kd-shadow" x="-30%" y="-30%" width="160%" height="180%">
-                    <feDropShadow dx="0" dy="8" stdDeviation="7" floodColor="#0c5d86" floodOpacity="0.28" />
-                  </filter>
-                  <filter id="kd-soft" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="7" />
-                  </filter>
-                </defs>
+            <div className="relative flex flex-col items-center">
+              <svg viewBox="0 0 220 220" className="h-48 w-48 drop-shadow-md sm:h-56 sm:w-56" role="img" aria-label="খুদে ডাক্তার বন্ধু">
+                {/* ব্যাকগ্রাউন্ড সানবার্স্ট গ্লো */}
+                <circle cx="110" cy="110" r="95" fill="#DEF7EC" />
+                <circle cx="110" cy="110" r="80" fill="#BCF0DA" opacity="0.6" />
 
-                <ellipse cx="120" cy="222" rx="62" ry="10" fill="#0b6f98" opacity="0.16" filter="url(#kd-soft)" />
+                {/* ডাক্তার কোট ও শরীর */}
+                <path d="M60 195 Q110 160 160 195 L165 220 L55 220 Z" fill="#0E9F6E" />
+                <path d="M75 190 Q110 170 145 190 L148 220 L72 220 Z" fill="#FFFFFF" />
 
-                <g filter="url(#kd-shadow)">
-                  <rect x="26" y="18" width="188" height="188" rx="43" fill="url(#kd-edge)" />
-                  <rect x="35" y="27" width="170" height="170" rx="36" fill="url(#kd-card)" />
-                  <path d="M48 34h94c28 0 50 22 50 50v9c-19-21-48-34-81-34-31 0-57 9-76 25V70c0-20 7-31 13-36Z" fill="#fff" opacity="0.18" />
-                  <path d="M39 160c35 18 86 24 166-9v35c0 6-5 11-11 11H47c-5 0-8-4-8-9Z" fill="#087fba" opacity="0.14" />
+                {/* মাথা ও মুখ */}
+                <circle cx="110" cy="100" r="48" fill="#FDE8E8" />
+                
+                {/* ডাক্তারের টুপি */}
+                <path d="M68 85 Q110 50 152 85 Q145 65 110 65 Q75 65 68 85 Z" fill="#31C48D" />
+                <rect x="104" y="66" width="12" height="12" rx="2" fill="#E02424" />
+                <rect x="107" y="63" width="6" height="18" rx="2" fill="#E02424" />
 
-                  <g fill="none" stroke="url(#kd-tube)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M73 69c-14 6-18 20-14 35l8 25c4 13 15 21 29 21h24c14 0 25-7 29-20l7-24c4-14 0-27-14-35" />
-                    <path d="M91 145c-3 17 7 27 23 27h7c12 0 19-6 19-16" />
-                  </g>
-                  <circle cx="70" cy="69" r="8" fill="#18bba7" />
-                  <circle cx="143" cy="69" r="8" fill="#18bba7" />
+                {/* চুল */}
+                <path d="M72 85 Q85 68 110 70 Q135 68 148 85 Q135 78 110 78 Q85 78 72 85 Z" fill="#4B5563" />
 
-                  <circle cx="106" cy="101" r="31" fill="#9be7f6" stroke="#eaffff" strokeWidth="5" />
-                  <circle cx="95" cy="91" r="10" fill="#dffbff" opacity="0.75" />
-                  <circle cx="97" cy="102" r="3.7" fill="#1d4255" />
-                  <circle cx="117" cy="102" r="3.7" fill="#1d4255" />
-                  <path d="M98 114c6 7 13 7 19 0" fill="none" stroke="#1d4255" strokeWidth="4" strokeLinecap="round" />
+                {/* চোখ দুটি (উজ্জ্বল ও হাসিখুশি) */}
+                <ellipse cx="94" cy="98" rx="5" ry="7" fill="#1F2A37" />
+                <circle cx="96" cy="96" r="2" fill="#FFFFFF" />
+                <ellipse cx="126" cy="98" rx="5" ry="7" fill="#1F2A37" />
+                <circle cx="128" cy="96" r="2" fill="#FFFFFF" />
 
-                  <path d="M151 83h23c7 0 12 5 12 12v23c0 7-5 12-12 12h-23c-7 0-12-5-12-12V95c0-7 5-12 12-12Z" fill="url(#kd-plus)" />
-                  <path d="M158 91h9v9h9v10h-9v10h-10v-10h-9V100h10Z" fill="#fff" />
+                {/* লালচে গাল */}
+                <circle cx="86" cy="108" r="6" fill="#F98080" opacity="0.6" />
+                <circle cx="134" cy="108" r="6" fill="#F98080" opacity="0.6" />
 
-                  <text x="120" y="173" textAnchor="middle" fontFamily="Nunito, sans-serif" fontSize="17" fontWeight="900" letterSpacing="0.7" fill="#fff">KHUDE</text>
-                  <text x="120" y="190" textAnchor="middle" fontFamily="Nunito, sans-serif" fontSize="21" fontWeight="900" letterSpacing="0.2" fill="#fff">DOCTOR</text>
-                </g>
+                {/* মিষ্টি হাসি */}
+                <path d="M100 114 Q110 126 120 114" fill="none" stroke="#1F2A37" strokeWidth="3.5" strokeLinecap="round" />
 
-                <g style={{ transformOrigin: "198px 45px" }}>
-                  <circle cx="198" cy="45" r="4" fill="#ffd24a" />
-                  <path d="M198 33v24M186 45h24" stroke="#ffd24a" strokeWidth="3" strokeLinecap="round" />
-                </g>
-                <g>
-                  <circle cx="28" cy="75" r="3.5" fill="#ff6d83" />
-                  <circle cx="214" cy="153" r="4" fill="#55d6a8" />
-                </g>
+                {/* স্টেথোস্কোপ */}
+                <path d="M88 135 Q110 165 132 135" fill="none" stroke="#046C4E" strokeWidth="5" strokeLinecap="round" />
+                <path d="M110 152 L110 168" stroke="#046C4E" strokeWidth="5" strokeLinecap="round" />
+                <circle cx="110" cy="172" r="9" fill="#F59E0B" stroke="#D97706" strokeWidth="2" />
               </svg>
+              <span className="mt-1 inline-block rounded-full bg-white/90 px-3 py-1 text-xs font-bangla font-black text-slate-700 shadow-sm border border-slate-100">
+                তোমার স্বাস্থ্য সঙ্গী 🩺
+              </span>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="rounded-3xl border border-amber-500/25 bg-amber-500/10 p-4 sm:p-5">
-        <div className="flex items-start gap-3">
-          <div className="rounded-2xl bg-amber-500/15 p-2.5"><ArrowRight className="h-5 w-5 text-amber-600" /></div>
+      {/* ২. আজকের রোমাঞ্চকর আবিষ্কার কার্ড */}
+      <section className="rounded-3xl border-2 border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50 p-5 shadow-xs dark:from-amber-950/20 dark:to-orange-950/20">
+        <div className="flex items-center gap-4">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-amber-500 text-white shadow-md shadow-amber-500/20">
+            <Lightbulb className="h-7 w-7" />
+          </div>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <p className="font-bangla text-xs font-bold text-amber-700 dark:text-amber-300">আজ কী শিখব?</p>
-                <h3 className="font-bangla text-lg font-black">একটা নতুন অঙ্গ আবিষ্কার করো!</h3>
+                <span className="text-xs font-bangla font-black uppercase text-amber-800 dark:text-amber-300">
+                  আজকের বিশেষ রহস্য
+                </span>
+                <h3 className="font-bangla text-lg font-black text-slate-800 dark:text-slate-100 sm:text-xl">
+                  {firstUnexplored.name}-এর গোপন ক্ষমতা আবিষ্কার করো!
+                </h3>
               </div>
-              <button type="button" onClick={() => onOrganPick(firstUnexplored.id)} className="rounded-xl px-3 py-2 font-bangla text-xs font-black text-amber-700 hover:bg-amber-500/10 dark:text-amber-300">
-                শুরু → 
+              <button
+                type="button"
+                onClick={() => onOrganPick(firstUnexplored.id)}
+                className="rounded-xl bg-amber-500 px-4 py-2 font-bangla text-xs font-black text-white shadow-xs transition-transform hover:scale-105 active:scale-95"
+              >
+                জেনে নেই →
               </button>
             </div>
-            <p className="mt-1 font-bangla text-xs leading-relaxed text-muted-foreground">
-              {firstUnexplored.name} কী কাজ করে, তার মজার তথ্য আর ছোট্ট রহস্য জেনে নাও।
+            <p className="mt-1 font-bangla text-xs font-medium leading-relaxed text-slate-600 dark:text-slate-300">
+              তোমার {firstUnexplored.name} সারাদিন কীভাবে অক্লান্ত পরিশ্রম করে তোমাকে সুস্থ রাখে, চলো এক নজরে দেখে নিই।
             </p>
           </div>
         </div>
       </section>
 
+      {/* ৩. প্রধান ৩টি আকর্ষণীয় চাইল্ড-ফ্রেন্ডলি একশন কার্ড */}
       <section>
-        <div className="mb-3 flex items-center justify-between">
-          <h3 className="font-bangla text-base font-black sm:text-lg">কী করতে চাও?</h3>
-          <Sparkles className="h-5 w-5 text-amber-500" />
+        <div className="mb-3.5 flex items-center justify-between px-1">
+          <h2 className="font-bangla text-lg font-black text-slate-800 dark:text-slate-100 sm:text-xl">
+            আজ কোন অভিযানে যাবে?
+          </h2>
+          <span className="text-xs font-bangla font-bold text-slate-500">তোমার পছন্দের পথ বেছে নাও</span>
         </div>
-        <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
-          <button type="button" onClick={() => onNavigate("chapters")} className="group rounded-2xl border border-emerald-500/20 bg-card p-3 text-center shadow-xs transition-all hover:-translate-y-0.5 hover:border-emerald-500/40 active:scale-95 sm:p-4">
-            <div className="mx-auto mb-2 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600"><BookOpen className="h-5 w-5" /></div>
-            <span className="font-bangla text-xs font-black sm:text-sm">পাঠশালা</span>
+
+        <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-3 sm:gap-4">
+          {/* কার্ড ১: পাঠশালা */}
+          <button
+            type="button"
+            onClick={() => onNavigate("chapters")}
+            className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border-2 border-emerald-400/40 bg-gradient-to-b from-white to-emerald-50/60 p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-emerald-500 hover:shadow-md active:scale-95 dark:from-slate-900 dark:to-emerald-950/20"
+          >
+            <div>
+              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-md shadow-emerald-500/20 group-hover:scale-110 transition-transform">
+                <BookOpen className="h-7 w-7" />
+              </div>
+              <h3 className="font-bangla text-lg font-black text-slate-800 dark:text-slate-100">
+                ডাক্তারি পাঠশালা
+              </h3>
+              <p className="mt-1 font-bangla text-xs font-medium text-slate-600 dark:text-slate-300">
+                গল্পে গল্পে মানবদেহের সব অঙ্গের মজার তথ্য ও কাজ শিখি।
+              </p>
+            </div>
+            <span className="mt-4 inline-flex items-center gap-1 font-bangla text-xs font-black text-emerald-700 dark:text-emerald-300">
+              পড়তে যাই <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </span>
           </button>
-          <button type="button" onClick={() => onNavigate("quiz-select")} className="group rounded-2xl border border-amber-500/20 bg-card p-3 text-center shadow-xs transition-all hover:-translate-y-0.5 hover:border-amber-500/40 active:scale-95 sm:p-4">
-            <div className="mx-auto mb-2 flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600"><Gamepad2 className="h-5 w-5" /></div>
-            <span className="font-bangla text-xs font-black sm:text-sm">কুইজ খেলি</span>
+
+          {/* কার্ড ২: কুইজ */}
+          <button
+            type="button"
+            onClick={() => onNavigate("quiz-select")}
+            className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border-2 border-amber-400/40 bg-gradient-to-b from-white to-amber-50/60 p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-amber-500 hover:shadow-md active:scale-95 dark:from-slate-900 dark:to-amber-950/20"
+          >
+            <div>
+              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500 text-white shadow-md shadow-amber-500/20 group-hover:scale-110 transition-transform">
+                <Gamepad2 className="h-7 w-7" />
+              </div>
+              <h3 className="font-bangla text-lg font-black text-slate-800 dark:text-slate-100">
+                মজার কুইজ খেলি
+              </h3>
+              <p className="mt-1 font-bangla text-xs font-medium text-slate-600 dark:text-slate-300">
+                বুদ্ধির লড়াই ও কুইজ খেলে পয়েন্ট ও আকর্ষণীয় ব্যাজ জিতো!
+              </p>
+            </div>
+            <span className="mt-4 inline-flex items-center gap-1 font-bangla text-xs font-black text-amber-700 dark:text-amber-300">
+              খেলতে যাই <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </span>
           </button>
-          <button type="button" onClick={() => onNavigate("body")} className="group rounded-2xl border border-sky-500/20 bg-card p-3 text-center shadow-xs transition-all hover:-translate-y-0.5 hover:border-sky-500/40 active:scale-95 sm:p-4">
-            <div className="mx-auto mb-2 flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-600"><UserRound className="h-5 w-5" /></div>
-            <span className="font-bangla text-xs font-black sm:text-sm">শরীর দেখো</span>
+
+          {/* কার্ড ৩: অঙ্গ পরিচিতি ও মানচিত্র (শরীর দেখো এর বদলে) */}
+          <button
+            type="button"
+            onClick={() => onNavigate("body")}
+            className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border-2 border-sky-400/40 bg-gradient-to-b from-white to-sky-50/60 p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-sky-500 hover:shadow-md active:scale-95 dark:from-slate-900 dark:to-sky-950/20"
+          >
+            <div>
+              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-500 text-white shadow-md shadow-sky-500/20 group-hover:scale-110 transition-transform">
+                <Compass className="h-7 w-7" />
+              </div>
+              <h3 className="font-bangla text-lg font-black text-slate-800 dark:text-slate-100">
+                দেহের মানচিত্র
+              </h3>
+              <p className="mt-1 font-bangla text-xs font-medium text-slate-600 dark:text-slate-300">
+                মাথা থেকে পা পর্যন্ত ঘুরে দেখে প্রতিটি অংশের রহস্য চিনে নিই।
+              </p>
+            </div>
+            <span className="mt-4 inline-flex items-center gap-1 font-bangla text-xs font-black text-sky-700 dark:text-sky-300">
+              ঘুরে দেখি <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </span>
           </button>
         </div>
       </section>
 
-      <div className="grid gap-3 md:grid-cols-2 content-visibility-auto" style={{ containIntrinsicSize: "0 220px" }}>
-        <section className="rounded-3xl border border-border/80 bg-card p-4 shadow-xs sm:p-5">
-          <div className="mb-2 flex items-center justify-between">
-            <span className="flex items-center gap-1.5 font-bangla text-xs font-bold text-muted-foreground"><Trophy className="h-4 w-4 text-amber-500" /> আমার অগ্রগতি</span>
-            <span className="rounded-full bg-primary/10 px-2 py-0.5 font-bangla text-[10px] font-extrabold text-primary">{progressPercent}%</span>
+      {/* ৪. গ্যামিফাইড অগ্রগতি ও আকর্ষণীয় জ্ঞান কার্ড */}
+      <div className="grid gap-4 md:grid-cols-2">
+        {/* অগ্রগতি কার্ড */}
+        <section className="rounded-3xl border-2 border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900 sm:p-6">
+          <div className="mb-3 flex items-center justify-between">
+            <span className="flex items-center gap-2 font-bangla text-sm font-black text-slate-700 dark:text-slate-200">
+              <Trophy className="h-5 w-5 text-amber-500" />
+              <span>ডাক্তার পদমর্যাদা:</span>
+            </span>
+            <span className="rounded-full bg-amber-100 px-3 py-1 font-bangla text-xs font-black text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
+              {doctorLevel}
+            </span>
           </div>
-          <div className="mb-1.5 flex items-center justify-between font-bangla text-xs font-bold sm:text-sm">
-            <span>{exploredCount}/{totalCount}টি অঙ্গ চিনেছো</span><span>{progressPercent}%</span>
+
+          <div className="mb-2 flex items-center justify-between font-bangla text-sm font-black text-slate-600 dark:text-slate-300">
+            <span>{exploredCount}/{totalCount}টি অঙ্গ জয় করেছো</span>
+            <span className="text-emerald-600 dark:text-emerald-400">{progressPercent}% সম্পন্ন</span>
           </div>
-          <div className="h-2.5 overflow-hidden rounded-full bg-muted"><div className="h-full rounded-full bg-primary transition-[width] duration-500" style={{ width: `${progressPercent}%` }} /></div>
+
+          {/* রঙিন ও শিশুদের উপযোগী প্রগ্রেস বার */}
+          <div className="h-3.5 overflow-hidden rounded-full bg-slate-100 p-0.5 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-700"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
         </section>
 
-        <section className="rounded-3xl border border-violet-500/20 bg-violet-500/5 p-4 shadow-xs sm:p-5">
-          <div className="flex items-start gap-3">
-            <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-violet-500" />
+        {/* তুমি কি জানতে? তথ্য কার্ড */}
+        <section className="rounded-3xl border-2 border-indigo-200/80 bg-gradient-to-r from-indigo-50/60 to-purple-50/60 p-5 shadow-xs dark:border-indigo-900/50 dark:from-indigo-950/20 dark:to-purple-950/20 sm:p-6">
+          <div className="flex items-start gap-3.5">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-indigo-500 text-white shadow-md shadow-indigo-500/20">
+              <Lightbulb className="h-6 w-6" />
+            </div>
             <div>
-              <p className="font-bangla text-xs font-bold text-violet-700 dark:text-violet-300">তুমি কি জানতে?</p>
-              <p className="mt-1 font-bangla text-xs font-semibold leading-relaxed sm:text-sm">{funFact.fact}</p>
+              <p className="font-bangla text-xs font-black uppercase text-indigo-700 dark:text-indigo-300">
+                আজব তথ্য 💡
+              </p>
+              <p className="mt-1 font-bangla text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-200">
+                {funFact.fact}
+              </p>
             </div>
           </div>
         </section>
